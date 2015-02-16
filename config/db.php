@@ -42,20 +42,21 @@ if ($conn->ping()) {
 else {
     printf ("Error: %s\n", $conn->error);
 }
+$sql = "SELECT user_name, user_email
+        FROM users
+        where user_name like 'ellertfinnbogi'";
+$dave = mysql_query($sql) or die(mysql_error());
 
+while($row = mysql_fetch_assoc(($dave))
+{
+	foreach($row as $cname => $cvalue)
+	{
+		print "$cname: $cvalue\t":
+	}
+	print "\r\n";
+}
 
-                $sql = "SELECT user_name, user_email, user_password_hash
-                        FROM users
-                        where user_name like 'ellertfinnbogi'";
-
-                        $result_of_login_check = $conn->query($sql);
-
-                                        if ($result_of_login_check->num_rows == 1) {
-
-                    // get result row (as an object)
-                    $result_row = $result_of_login_check->fetch_object();
-                    echo $result_row;
-                }
+                      
 
 /*$conn = new mysqli($server, $username, $password, $db);
 

@@ -20,14 +20,19 @@ define("DB_PASS", "eN1*wP5%");*/
 
 //CLEARDB_DATABASE_URL: mysql://b5ff330ecc5d82:b4f10d5b@us-cdbr-iron-east-01.cleardb.net/
 // heroku_fe4c3f7fd3aac4d?reconnect=true
-
+echo ' this is here';
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$server = $url["us-cdbr-iron-east-01.cleardb.net"];
+/*$server = $url["us-cdbr-iron-east-01.cleardb.net"];
 $username = $url["b5ff330ecc5d82"];
 $password = $url["b4f10d5b"];
-$db = substr($url["heroku_fe4c3f7fd3aac4d"], 1);
+$db = substr($url["heroku_fe4c3f7fd3aac4d"], 1);*/
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
 

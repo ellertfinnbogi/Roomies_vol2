@@ -72,10 +72,7 @@ class Registration
             //Heroku database connection
              $this->db_connection = new mysqli($server, $username, $password, $db);
 
-             if(!db_connection)
-             {
-                die('could not connect' . mysql_error());
-             }
+
 
 
             // change character set to utf8 and check it
@@ -118,6 +115,7 @@ class Registration
                 }
             } else {
                 $this->errors[] = "Sorry, no database connection.";
+                echo mysql_error();
             }
         } else {
             $this->errors[] = "An unknown error occurred.";

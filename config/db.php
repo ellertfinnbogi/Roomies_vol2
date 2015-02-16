@@ -21,8 +21,8 @@ define("DB_PASS", "eN1*wP5%");*/
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
+$username = $url["b5ff330ecc5d82"];
+$password = $url["b4f10d5b"];
 $db = substr($url["path"], 1);
 
 //$conn = new mysqli($server, $username, $password, $db);

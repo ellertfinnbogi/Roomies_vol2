@@ -34,7 +34,15 @@ $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
 
+
 $conn = new mysqli($server, $username, $password, $db);
+if ($conn->ping()) {
+    printf ("Our connection is ok!\n");
+}
+else {
+    printf ("Error: %s\n", $conn->error);
+}
+
 
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users

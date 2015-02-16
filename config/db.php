@@ -12,7 +12,18 @@
  * DB_PASS: the password of the above user
  */
 //define("DB_HOST", "127.0.0.1");
-define("DB_HOST", "sql3.freemysqlhosting.net:3306");
+/*define("DB_HOST", "sql3.freemysqlhosting.net:3306");
 define("DB_NAME", "sql367320");
 define("DB_USER", "sql367320");
-define("DB_PASS", "eN1*wP5%");
+define("DB_PASS", "eN1*wP5%");*/
+
+
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+
+//$conn = new mysqli($server, $username, $password, $db);
+?>

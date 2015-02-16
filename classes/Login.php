@@ -57,6 +57,13 @@ class Login
             //Heroku CLEARDB:
             $this->db_connection = new mysqli($server, $username, $password, $db);
 
+            if ($conn->ping()) {
+                printf ("Our connection is ok!\n");
+            }
+            else {
+                printf ("Error: %s\n", $conn->error);
+            }
+
             // change character set to utf8 and check it
             if (!$this->db_connection->set_charset("utf8")) {
                 $this->errors[] = $this->db_connection->error;

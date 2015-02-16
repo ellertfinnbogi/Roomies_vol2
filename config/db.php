@@ -43,7 +43,7 @@ else {
     printf ("Error: %s\n", $conn->error);
 }
 $sql = "SELECT user_name, user_email
-        FROM users
+        FROM heroku_fe4c3f7fd3aac4d.users
         where user_name like 'ellertfinnbogi'";
 $dave = mysql_query($sql) or die(mysql_error());
 

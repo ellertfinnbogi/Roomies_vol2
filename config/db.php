@@ -34,9 +34,13 @@ $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
 
+$conn = new mysqli($server, $username, $password, $db);
+
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users
                         where user_name like 'ellertfinnbogi'";
+
+                        $result_of_login_check = $conn->query($sql);
 
                                         if ($result_of_login_check->num_rows == 1) {
 

@@ -40,4 +40,8 @@ if(!$conn)
 {
 	echo 'no connection' . mysql_error();
 }
+else 
+{
+	echo 'conn worked';
+}
 ?>

@@ -56,7 +56,7 @@ while($row = mysql_fetch_assoc(($dave))
 	print "\r\n";
 }
 
-                      
+                     ?> 
 
 /*$conn = new mysqli($server, $username, $password, $db);
 

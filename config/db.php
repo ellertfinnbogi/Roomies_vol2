@@ -20,7 +20,7 @@ define("DB_PASS", "eN1*wP5%");*/
 
 //CLEARDB_DATABASE_URL: mysql://b5ff330ecc5d82:b4f10d5b@us-cdbr-iron-east-01.cleardb.net/
 // heroku_fe4c3f7fd3aac4d?reconnect=true
-echo ' this is here';
+
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
@@ -33,6 +33,17 @@ $server = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
+
+                $sql = "SELECT user_name, user_email, user_password_hash
+                        FROM users
+                        where user_name like 'ellertfinnbogi'";
+
+                                        if ($result_of_login_check->num_rows == 1) {
+
+                    // get result row (as an object)
+                    $result_row = $result_of_login_check->fetch_object();
+                    echo $result_row;
+                }
 
 /*$conn = new mysqli($server, $username, $password, $db);
 

@@ -36,12 +36,10 @@ $db = substr($url["path"], 1);
 
 $conn = new mysqli($server, $username, $password, $db);
 
-if(!$conn)
-{
-	echo 'no connection' . mysql_error();
+if ($conn->ping()) {
+    printf ("Our connection is ok!\n");
 }
-else 
-{
-	echo 'conn worked';
+else {
+    printf ("Error: %s\n", $conn->error);
 }
 ?>

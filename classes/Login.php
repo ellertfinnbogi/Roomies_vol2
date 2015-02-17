@@ -18,7 +18,15 @@ class Login
      * @var array Collection of success / neutral messages
      */
     public $messages = array();
-    require_once("../config/db.php");
+    
+    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+
+
+    $server = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $db = substr($url["path"], 1);
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -58,12 +66,7 @@ class Login
             //Heroku CLEARDB:
             $this->db_connection = new mysqli($server, $username, $password, $db);
 
-            if ($conn->ping()) {
-                printf ("Our connection is ok!\n");
-            }
-            else {
-                printf ("Error: %s\n", $conn->error);
-            }
+  
 
             // change character set to utf8 and check it
             if (!$this->db_connection->set_charset("utf8")) {

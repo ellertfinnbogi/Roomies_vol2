@@ -48,7 +48,7 @@ $sql = "SELECT user_name, user_email
         where user_name like 'ellertfinnbogi'";
 $dave = mysql_query($sql) or die(mysql_error());
 
-while($row = mysql_fetch_assoc(($dave))
+while($row = mysql_fetch_assoc($dave))
 {
 	foreach($row as $cname => $cvalue)
 	{

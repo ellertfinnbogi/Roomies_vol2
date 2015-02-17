@@ -7,7 +7,12 @@
 class Login
 {
 
+    private $url = null;
 
+
+    private $server = null;
+    private $username = null;
+    private $db = null;
 
     /**
      * @var object The database connection

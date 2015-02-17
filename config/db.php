@@ -52,7 +52,7 @@ while($row = mysql_fetch_assoc($dave))
 {
 	foreach($row as $cname => $cvalue)
 	{
-		print "$cname: $cvalue\t":
+		print "$cname: $cvalue\t";
 	}
 	print "\r\n";
 }

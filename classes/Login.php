@@ -32,14 +32,14 @@ class Login
     {
         // create/read session, absolutely necessary
         session_start();
-            public $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+             $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 
 
-    public $server = $url["host"];
-    public $username = $url["user"];
-    public $password = $url["pass"];
-    public $db = substr($url["path"], 1);
+  $server = $url["host"];
+ $username = $url["user"];
+ $password = $url["pass"];
+  $db = substr($url["path"], 1);
 
         // check the possible login actions:
         // if user tried to log out (happen when user clicks logout button)

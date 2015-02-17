@@ -18,6 +18,7 @@ class Login
      * @var array Collection of success / neutral messages
      */
     public $messages = array();
+    require_once("../config/db.php");
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,

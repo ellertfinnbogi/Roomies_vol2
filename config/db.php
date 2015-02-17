@@ -55,15 +55,6 @@ while($row = mysql_fetch_assoc(($dave))
 	}
 	print "\r\n";
 }
+?> 
 
-                     ?> 
-
-/*$conn = new mysqli($server, $username, $password, $db);
-
-if ($conn->ping()) {
-    printf ("Our connection is ok!\n");
-}
-else {
-    printf ("Error: %s\n", $conn->error);
-}*/
 

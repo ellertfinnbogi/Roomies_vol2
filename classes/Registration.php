@@ -7,7 +7,7 @@
 class Registration
 {
     /**
-     * @var object $db_connection The database connection tengingin
+     * @var object $db_connection database tengingin
      */
     private $db_connection = null;
     /**

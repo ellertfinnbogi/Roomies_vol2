@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Class registration
- * handles the user registration
+ * klasi fyrir nyskraningu
+ * 
  */
 class Registration
 {
@@ -20,8 +20,7 @@ class Registration
     public $messages = array();
 
     /**
-     * the function "__construct()" automatically starts whenever an object of this class is created,
-     * you know, when you do "$registration = new Registration();"
+     * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
      */
     public function __construct()
     {
@@ -31,8 +30,7 @@ class Registration
     }
 
     /**
-     * handles the entire registration process. checks all error possibilities
-     * and creates a new user in the database if everything is fine
+     * athugum með errora í register inputinu , og búum svo til nýjan user.
      */
     private function registerNewUser()
     {
@@ -65,48 +63,46 @@ class Registration
             && !empty($_POST['user_password_repeat'])
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
-            // create a database connection
-           // $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            // búum til database tengingu
+           // $this->db_connection = new mysqli(server, user, pw, db);
 
 
-            //Heroku database connection
+            //Heroku database tenging
              $this->db_connection = new mysqli($server, $username, $password, $db);
 
 
 
 
-            // change character set to utf8 and check it
+            // setjum stafasett sem utf8
             if (!$this->db_connection->set_charset("utf8")) {
                 $this->errors[] = $this->db_connection->error;
             }
 
-            // if no connection errors (= working database connection)
+            // athugum hvort database tengingin se ekki í lagi,
             if (!$this->db_connection->connect_errno) {
 
-                // escaping, additionally removing everything that could be (html/javascript-) code
+                // fjarlægum allt sem getur verið html og js kóði
                 $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
 
                 $user_password = $_POST['user_password_new'];
 
-                // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
-                // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
-                // PHP 5.3/5.4, by the password hashing compatibility library
+                // Söltum þetta password
                 $user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
 
-                // check if user or email address already exists
+                // athugum hvort username er nokkuð nú þegar til
                 $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
                 $query_check_user_name = $this->db_connection->query($sql);
 
                 if ($query_check_user_name->num_rows == 1) {
                     $this->errors[] = "Sorry, that username / email address is already taken.";
                 } else {
-                    // write new user's data into database
+                    // skrifum nýja userinn í databaseið
                     $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
                             VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
-                    // if user has been added successfully
+                    // usernum hefur verið bætt við
                     if ($query_new_user_insert) {
                         $this->messages[] = "Your account has been created successfully. You can now log in.";
                     } else {

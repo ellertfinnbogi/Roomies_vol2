@@ -2,7 +2,7 @@
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
 /**
- * Configuration for: Database Connection
+ * Configuration for: Database Connection Grunnurinn
  */
 
 

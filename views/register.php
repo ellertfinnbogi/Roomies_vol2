@@ -1,5 +1,5 @@
 <?php
-// show potential errors / feedback (from registration object)
+// show potential errors / feedback (from registration object) Mogulegar villur
 if (isset($registration)) {
     if ($registration->errors) {
         foreach ($registration->errors as $error) {

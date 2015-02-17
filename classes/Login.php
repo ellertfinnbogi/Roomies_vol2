@@ -2,7 +2,7 @@
 //  test   require_once("config/db.php");
 
 /**
- * Class login
+ * Class logg
  * handles the user's login and logout process
  */
 class Login

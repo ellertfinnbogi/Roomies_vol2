@@ -10,10 +10,10 @@ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 
 
-$server = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$db = substr($url["path"], 1);
+global $server = $url["host"];
+global $username = $url["user"];
+global $password = $url["pass"];
+global $db = substr($url["path"], 1);
 
 
 $conn = new mysqli($server, $username, $password, $db);

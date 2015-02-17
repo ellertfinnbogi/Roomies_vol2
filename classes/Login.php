@@ -6,6 +6,16 @@
  */
 class Login
 {
+    private $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+
+
+    private $server = $url["host"];
+    private $username = $url["user"];
+    private $password = $url["pass"];
+    private $db = substr($url["path"], 1);
+
+    
     /**
      * @var object The database connection
      */
@@ -19,14 +29,7 @@ class Login
      */
     public $messages = array();
     
-    private $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-
-
-    private $server = $url["host"];
-    private $username = $url["user"];
-    private $password = $url["pass"];
-    private $db = substr($url["path"], 1);
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,

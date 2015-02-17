@@ -19,14 +19,14 @@ class Login
      */
     public $messages = array();
     
-    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+    private $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 
 
-    $server = $url["host"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $db = substr($url["path"], 1);
+    private $server = $url["host"];
+    private $username = $url["user"];
+    private $password = $url["pass"];
+    private $db = substr($url["path"], 1);
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,

@@ -21,8 +21,6 @@ define("DB_PASS", "eN1*wP5%");*/
 
 //CLEARDB_DATABASE_URL: mysql://b5ff330ecc5d82:b4f10d5b@us-cdbr-iron-east-01.cleardb.net/
 // heroku_fe4c3f7fd3aac4d?reconnect=true
-echo 'eger er her';
-
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 /*$server = $url["us-cdbr-iron-east-01.cleardb.net"];
@@ -43,7 +41,7 @@ if ($conn->ping()) {
 else {
     printf ("Error: %s\n", $conn->error);
 }
-$sql = "SELECT user_name, user_email
+/*$sql = "SELECT user_name, user_email
         FROM heroku_fe4c3f7fd3aac4d.users
         where user_name like 'ellertfinnbogi'";
 if($result = $conn->query($sql))

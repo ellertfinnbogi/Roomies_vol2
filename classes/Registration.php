@@ -11,11 +11,11 @@ class Registration
      */
     private $db_connection = null;
     /**
-     * @var array $errors Collection of error messages
+     * @var array $errors fylki af errors
      */
     public $errors = array();
     /**
-     * @var array $messages Collection of success / neutral messages
+     * @var array $messages fylki af skilboðum
      */
     public $messages = array();
 

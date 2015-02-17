@@ -1,58 +1,55 @@
 <?php
-//  test   require_once("config/db.php");
+
 
 /**
- * Class logg
- * handles the user's login and logout process
+ * Klasi fyrir log in
  */
 class Login
 {
     /**
-     * @var object The database connection
+     * @var object  database tengingin
      */
     private $db_connection = null;
     /**
-     * @var array Collection of error messages
+     * @var array fylki af errors
      */
     public $errors = array();
     /**
-     * @var array Collection of success / neutral messages
+     * @var array fylki of success / neutral messages
      */
     public $messages = array();
 
     /**
-     * the function "__construct()" automatically starts whenever an object of this class is created,
-     * you know, when you do "$login = new Login();"
+     * keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
      */
     public function __construct()
     {
-        // create/read session, absolutely necessary
+        // störtum session
         session_start();
 
-        // check the possible login actions:
-        // if user tried to log out (happen when user clicks logout button)
+        // ef klikkað er á logout hnappinn
         if (isset($_GET["logout"])) {
             $this->doLogout();
         }
-        // login via post data (if user just submitted a login form)
+        // login með postdata
         elseif (isset($_POST["login"])) {
             $this->dologinWithPostData();
         }
     }
 
     /**
-     * log in with post data
+     * log in með post data
      */
     private function dologinWithPostData()
     {
-        // check login form contents
+        // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";
         } elseif (empty($_POST['user_password'])) {
             $this->errors[] = "Password field was empty.";
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
-            // create a database connection, using the constants from config/db.php (which we loaded in index.php)
+            // búum til db tengingu með breytum fra db.php
             //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             //Heroku CLEARDB:
@@ -65,35 +62,33 @@ class Login
                 printf ("Error: %s\n", $conn->error);
             }
 
-            // change character set to utf8 and check it
+            // breytum í stafasett utf8
             if (!$this->db_connection->set_charset("utf8")) {
                 $this->errors[] = $this->db_connection->error;
             }
 
-            // if no connection errors (= working database connection)
+            // ef engir errorar
             if (!$this->db_connection->connect_errno) {
 
-                // escape the POST stuff
+                
                 $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
 
-                // database query, getting all the info of the selected user (allows login via email address in the
-                // username field)
+                // faaum allar upplýsingar um userinn sem var að logg sig inn
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users
                         WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
-                // if this user exists
+                // ef userinn er til.
                 if ($result_of_login_check->num_rows == 1) {
 
-                    // get result row (as an object)
+                    // fáuum niðurstöður
                     $result_row = $result_of_login_check->fetch_object();
 
-                    // using PHP 5.5's password_verify() function to check if the provided password fits
-                    // the hash of that user's password
+                    // athugum hvort saltaða pw passi
                     if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
 
-                        // write user data into PHP SESSION (a file on your server)
+                        // skrifum user gognin í php session (skrá á servernum)
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_login_status'] = 1;
@@ -111,20 +106,20 @@ class Login
     }
 
     /**
-     * perform the logout
+     * gerum log out
      */
     public function doLogout()
     {
-        // delete the session of the user
+        // eyðum sessioninu af notandanum
         $_SESSION = array();
         session_destroy();
-        // return a little feeedback message
+        // skrifum á skjá
         $this->messages[] = "You have been logged out.";
 
     }
 
     /**
-     * simply return the current state of the user's login
+     * forum aftur a "forsíðu"
      * @return boolean user's login status
      */
     public function isUserLoggedIn()

@@ -46,16 +46,12 @@ else {
 $sql = "SELECT user_name, user_email
         FROM heroku_fe4c3f7fd3aac4d.users
         where user_name like 'ellertfinnbogi'";
-$dave = mysql_query($sql) or die(mysql_error());
-
-while($row = mysql_fetch_assoc($dave))
+if($result = $conn->query($sql))
 {
-	foreach($row as $cname => $cvalue)
-	{
-		print "$cname: $cvalue\t";
-	}
-	print "\r\n";
+	printf($result->num_rows);
 }
+
+printf($result)
 ?> 
 
 

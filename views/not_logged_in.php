@@ -1,5 +1,5 @@
 <?php
-// show potential errors / feedback (from login object)
+// show potential errors / feedback (from login object) Villumelding
 if (isset($login)) {
     if ($login->errors) {
         foreach ($login->errors as $error) {

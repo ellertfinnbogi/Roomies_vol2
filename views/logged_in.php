@@ -9,7 +9,7 @@ require_once("../config/db.php");
 
 $login = new Login();
 
-// ... ask if we are logged in here:
+// ... spurt hvort notandi se loggadur inn:
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.

@@ -1,44 +1,44 @@
 <?php
 
 /**
- * A simple, clean and secure PHP Login Script / MINIMAL VERSION
- * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+ * PHP login script / Vid reynum ad nota audveldan hreinan koda.
+ * Getum notad www.php-login.net til frekari adstodar vid log in.
  *
- * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+ * Notkun a PHP Session og password-hashing kemur fram her sem er naudsynlegt fyrir kerfid.
  *
- * @author Panique
- * @link https://github.com/panique/php-login-minimal/
- * @license http://opensource.org/licenses/MIT MIT License
+ * @author Panique hofundur
+ * @link https://github.com/panique/php-login-minimal/ github kennsla
+ * @license http://opensource.org/licenses/MIT MIT License - leyfid 
  */
 
-// checking for minimum PHP version
+// Skodum her lagmarks PHP utgafu
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-    // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+    // Ef vid stydjumst vid PHP 5.3 eda 5.4 verdum vid ad includa password_api_compatibility_library.php
+    // Tilgangur tessa safns er ad baeta PHP5.5 password hashing fyrir function i eldri utgafum af PHP
     require_once("libraries/password_compatibility_library.php");
 }
 
-// include the configs / constants for the database connection
+// include configid fyrir breyturnar i tengingunni vid database
 require_once("config/db.php");
 
 // Hlada load i login class
 require_once("classes/Login.php");
 
-// create a login object. when this object is created, it will do all login/logout stuff automatically
-// so this single line handles the entire login process. in consequence, you can simply ...
+// buum til login object. Tegar tetta object er buid til ser tad sjalft um login/logout virknina
+// svo tessi eina lina ser um allt login processid. 
 $login = new Login();
 
 // ... athuga hvort tu sert loggadur inn her:
 if ($login->isUserLoggedIn() == true) {
-    // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
+    // notandinn er loggadur inn, tu getur gert tad sem tu vilt her.
+    // til ad athuga rett getur madur einfaldlega synt "tu ert loggadur inn" view
    // include("views/logged_in.php");
     header("Location:views/logged_in.php");
 
 } else {
-    // the user is not logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are not logged in" view.
+    // notandinn er ekki loggadur inn, tu getur gert tad sem tu vilt her
+    // til ad athuga getur tu skrifad her "tu ert ekki loggadur inn" view.
     include("views/header.html");
 }

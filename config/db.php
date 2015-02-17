@@ -1,5 +1,6 @@
 <?php
-
+        error_reporting(E_ALL);
+        ini_set("display_errors", 1);
 /**
  * Configuration for: Database Connection
  *
@@ -20,7 +21,7 @@ define("DB_PASS", "eN1*wP5%");*/
 
 //CLEARDB_DATABASE_URL: mysql://b5ff330ecc5d82:b4f10d5b@us-cdbr-iron-east-01.cleardb.net/
 // heroku_fe4c3f7fd3aac4d?reconnect=true
-
+echo 'eger er her';
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 

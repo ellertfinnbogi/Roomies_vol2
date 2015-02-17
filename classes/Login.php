@@ -20,7 +20,7 @@ class Login
     public $messages = array();
 
     /**
-     * keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
+     * keyrst sjálfkrafa þegar nýtt object af klasanum Login er búið til
      */
     public function __construct()
     {

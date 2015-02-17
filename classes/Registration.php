@@ -20,7 +20,7 @@ class Registration
     public $messages = array();
 
     /**
-     * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
+     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
      */
     public function __construct()
     {

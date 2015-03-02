@@ -65,8 +65,15 @@ class Login
  $password = $url["pass"];
   $db = substr($url["path"], 1);
 
+  if ($conn->ping()) {
+    printf ("Our connection is ok!\n");
+}
+else {
+    printf ("Error: %s\n", $conn->error);
+}
 
-   
+
+
         // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";
@@ -78,8 +85,13 @@ class Login
             //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             //Heroku CLEARDB:
-            $this->db_connection = new mysqli($server, $username, $password, $db);
-
+            $db_connection = new mysqli($server, $username, $password, $db);
+            if ($db_connection->ping()) {
+    printf ("Our connection is ok!\n");
+}
+else {
+    printf ("Error: %s\n", $db_connection->error);
+}
   
 
             // breytum í stafasett utf8

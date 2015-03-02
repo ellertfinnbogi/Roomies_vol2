@@ -1,4 +1,10 @@
 
 
-Hey, <?php echo $_SESSION['user_name']; ?>. You are logged in.
+Hey, <?php echo $_SESSION['user_name']; 
+$login  = new Login();
+$login->isUserLoggedIn();
+echo $login;
+
+?>. You are logged in.
+
 Try to close this browser tab and open it again. Still logged in! ;)

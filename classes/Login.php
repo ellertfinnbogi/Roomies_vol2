@@ -80,9 +80,9 @@ else {
   
 
             // breytum í stafasett utf8
-          /*  if (!$this->db_connection->set_charset("utf8")) {
-                $this->errors[] = $this->db_connection->error;
-            }*/
+            if (!$db_connection->set_charset("utf8")) {
+                $this->errors[] = $db_connection->error;
+            }
 
             // ef engir errorar
             if (!$db_connection->connect_errno) {
@@ -99,7 +99,7 @@ else {
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users
                         WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-                $result_of_login_check = $this->db_connection->query($sql);
+                $result_of_login_check = $db_connection->query($sql);
 
                 // ef userinn er til.
                 if ($result_of_login_check->num_rows == 1) {

@@ -65,15 +65,6 @@ class Login
  $password = $url["pass"];
   $db = substr($url["path"], 1);
 
-  if ($conn->ping()) {
-    printf ("Our connection is ok!\n");
-}
-else {
-    printf ("Error: %s\n", $conn->error);
-}
-
-
-
         // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";

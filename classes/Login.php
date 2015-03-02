@@ -86,9 +86,9 @@ else {
   
 
             // breytum í stafasett utf8
-            if (!$this->db_connection->set_charset("utf8")) {
+          /*  if (!$this->db_connection->set_charset("utf8")) {
                 $this->errors[] = $this->db_connection->error;
-            }
+            }*/
 
             // ef engir errorar
             if (!$this->db_connection->connect_errno) {

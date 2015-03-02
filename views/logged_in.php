@@ -1,7 +1,7 @@
 
 
 Hey, <?php echo $_SESSION['user_name']; 
-require_once("../classes/Login.php");
+require_once("classes/Login.php");
 
 $temp;
 $temp->isUserLoggedIn();

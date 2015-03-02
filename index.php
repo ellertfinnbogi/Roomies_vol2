@@ -10,7 +10,7 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 }
 
 // include configid fyrir breyturnar i tengingunni vid database
-require_once("config/db.php");
+//require_once("config/db.php");
 
 // Hlada load i login class
 require_once("classes/Login.php");

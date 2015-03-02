@@ -78,7 +78,7 @@ class Login
             //Heroku CLEARDB:
             $db_connection = new mysqli($server, $username, $password, $db);
             if ($db_connection->ping()) {
-    printf ("Our connection is ok!\n");
+    printf ("Our connection is ok!,inside here\n");
 }
 else {
     printf ("Error: %s\n", $db_connection->error);

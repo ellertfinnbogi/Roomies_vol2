@@ -7,12 +7,12 @@
 class Login
 {
 
-    private $url = null;
+    /*private $url = null;
 
 
     private $server = null;
     private $username = null;
-    private $db = null;
+    private $db = null;*/
 
     /**
      * @var object  database tengingin
@@ -40,18 +40,8 @@ class Login
     {
         // störtum session
         session_start();
-             $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+           
 
-<<<<<<< HEAD
-
-
-  $server = $url["host"];
- $username = $url["user"];
- $password = $url["pass"];
-  $db = substr($url["path"], 1);
-
-=======
->>>>>>> FETCH_HEAD
         // ef klikkað er á logout hnappinn
         if (isset($_GET["logout"])) {
             $this->doLogout();
@@ -67,6 +57,16 @@ class Login
      */
     private function dologinWithPostData()
     {
+
+ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+  $server = $url["host"];
+ $username = $url["user"];
+ $password = $url["pass"];
+  $db = substr($url["path"], 1);
+
+
+   
         // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";

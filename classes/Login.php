@@ -7,12 +7,6 @@
 class Login
 {
 
-    /*private $url = null;
-
-
-    private $server = null;
-    private $username = null;
-    private $db = null;*/
 
     /**
      * @var object  database tengingin
@@ -76,7 +70,7 @@ class Login
             //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             //Heroku CLEARDB:
-            $this->db_connection = new mysqli($server, $username, $password, $db);
+            $db_connection = new mysqli($server, $username, $password, $db);
             if ($db_connection->ping()) {
     printf ("Our connection is ok!,inside here\n");
 }
@@ -91,12 +85,12 @@ else {
             }*/
 
             // ef engir errorar
-            if (!$this->db_connection->connect_errno) {
+            if (!$db_connection->connect_errno) {
 
                 
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+               // $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
 
-                //$user_name = $db_connection->real_escape_string($_POST['user_name']);
+                $user_name = $db_connection->real_escape_string($_POST['user_name']);
 
                 echo $user_name;
 

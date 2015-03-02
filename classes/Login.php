@@ -94,7 +94,12 @@ else {
             if (!$this->db_connection->connect_errno) {
 
                 
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+              //  $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+
+                $user_name = $db_connection->real_escape_string($_POST['user_name']);
+
+                echo $user_name;
+
 
                 // faaum allar upplýsingar um userinn sem var að logg sig inn
                 $sql = "SELECT user_name, user_email, user_password_hash

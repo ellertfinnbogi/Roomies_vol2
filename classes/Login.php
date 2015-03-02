@@ -30,7 +30,11 @@ class Login
 
 
     /**
+<<<<<<< HEAD
      * keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
+=======
+     * keyrst sjálfkrafa þegar nýtt object af klasanum Login er búið til
+>>>>>>> FETCH_HEAD
      */
     public function __construct()
     {
@@ -38,6 +42,7 @@ class Login
         session_start();
              $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
+<<<<<<< HEAD
 
 
   $server = $url["host"];
@@ -45,6 +50,8 @@ class Login
  $password = $url["pass"];
   $db = substr($url["path"], 1);
 
+=======
+>>>>>>> FETCH_HEAD
         // ef klikkað er á logout hnappinn
         if (isset($_GET["logout"])) {
             $this->doLogout();

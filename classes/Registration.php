@@ -20,7 +20,11 @@ class Registration
     public $messages = array();
 
     /**
+<<<<<<< HEAD
      * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
+=======
+     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
+>>>>>>> FETCH_HEAD
      */
     public function __construct()
     {

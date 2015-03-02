@@ -1,34 +1,35 @@
 <?php
 
 /**
- * A simple, clean and secure PHP Login Script / MINIMAL VERSION
- * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
+ * PHP login script / Vid reynum ad nota audveldan hreinan koda.
+ * Getum notad www.php-login.net til frekari adstodar vid log in.
  *
- * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
+ * Notkun a PHP Session og password-hashing kemur fram her sem er naudsynlegt fyrir kerfid.
  *
- * @author Panique
- * @link https://github.com/panique/php-login-minimal/
- * @license http://opensource.org/licenses/MIT MIT License
+ * @author Panique hofundur
+ * @link https://github.com/panique/php-login-minimal/ github kennsla
+ * @license http://opensource.org/licenses/MIT MIT License - leyfid 
  */
 
-// checking for minimum PHP version
+// Skodum her lagmarks PHP utgafu
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-    // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-    require_once("libraries/password_compatibility_library.php");
+    // Ef vid stydjumst vid PHP 5.3 eda 5.4 verdum vid ad includa password_api_compatibility_library.php
+    // Tilgangur tessa safns er ad baeta PHP5.5 password hashing fyrir function i eldri utgafum af PHP
+    //ekki í notkun eins og er.
+    //require_once("libraries/password_compatibility_library.php");
 }
 
-// include the configs / constants for the database connection
+// include configid fyrir breyturnar i tengingunni vid database
 require_once("config/db.php");
 
 // hlada the registration class
 require_once("classes/Registration.php");
 
-// create the registration object. when this object is created, it will do all registration stuff automatically
-// so this single line handles the entire registration process.
+// buum til registration object. tegar tad er til ser tad um skraninguna sjalfvirkt
+// svo tessi eina lina ser um allt registartion ferlid
 $registration = new Registration();
 
-// show the register view (with the registration form, and messages/errors)
+// synir register view, med registration form, skilabod og villuskilabod
 include("views/register.php");

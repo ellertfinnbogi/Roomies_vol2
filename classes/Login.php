@@ -76,7 +76,7 @@ class Login
             //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             //Heroku CLEARDB:
-            $db_connection = new mysqli($server, $username, $password, $db);
+            $this->db_connection = new mysqli($server, $username, $password, $db);
             if ($db_connection->ping()) {
     printf ("Our connection is ok!,inside here\n");
 }
@@ -94,9 +94,9 @@ else {
             if (!$this->db_connection->connect_errno) {
 
                 
-              //  $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
 
-                $user_name = $db_connection->real_escape_string($_POST['user_name']);
+                //$user_name = $db_connection->real_escape_string($_POST['user_name']);
 
                 echo $user_name;
 

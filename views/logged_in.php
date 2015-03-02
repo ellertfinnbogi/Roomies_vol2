@@ -1,9 +1,7 @@
 
 
 Hey, <?php echo $_SESSION['user_name']; 
-$login  = new Login();
-$login->isUserLoggedIn();
-echo $login;
+
 
 ?>. You are logged in.
 

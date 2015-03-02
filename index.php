@@ -24,8 +24,8 @@ if ($login->isUserLoggedIn() == true) {
     // notandinn er loggadur inn, tu getur gert tad sem tu vilt her.
     // til ad athuga rett getur madur einfaldlega synt "tu ert loggadur inn" view
    // include("views/logged_in.php");
-    //header("Location:views/logged_in.php");
-    include("views/logged_in.php");
+    header("Location:views/logged_in.php",TRUE,301);
+    //include("views/logged_in.php");
 
 } else {
     // notandinn er ekki loggadur inn, tu getur gert tad sem tu vilt her

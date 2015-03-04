@@ -1,8 +1,22 @@
+<?php 
+require_once("../classes/Login.php");
+$sess = new Login();
+//$sess->function __construct();
+
+if($_SESSION['user_login_status'] == 1)
+{
+	echo 'great success';
+}
+else
+{
+	header('HTTP/1.0 403 Forbidden');
+    die('You are not allowed to access this file.');  
+}
 
 
-Hey, <?php echo $_SESSION['user_name']; 
 
 
-?>. You are logged in.
+?>
 
-Try to close this browser tab and open it again. Still logged in! ;)
+
+

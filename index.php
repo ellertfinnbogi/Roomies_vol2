@@ -1,5 +1,4 @@
 <?php
-
 // Skodum her lagmarks PHP utgafu
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
@@ -10,7 +9,7 @@ if (version_compare(PHP_VERSION, '5.3.3', '<')) {
 }
 
 // include configid fyrir breyturnar i tengingunni vid database
-//require_once("config/db.php");
+require_once("config/db.php");
 
 // Hlada load i login class
 require_once("classes/Login.php");

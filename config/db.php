@@ -6,32 +6,8 @@
  */
 
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-
-
-$server = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$db = substr($url["path"], 1);
-
-
-/*$conn = new mysqli($server, $username, $password, $db);
-if ($conn->ping()) {
-    printf ("Our connection is ok!\n");
-}
-else {
-    printf ("Error: %s\n", $conn->error);
-}*/
-/*$sql = "SELECT user_name, user_email
-        FROM heroku_fe4c3f7fd3aac4d.users
-        where user_name like 'ellertfinnbogi'";
-if($result = $conn->query($sql))
-{
-	printf($result->num_rows);
-}
-
-printf($result)
-?> 
-
-
+define("DB_HOST", "db4free.net");
+define("DB_PORT", "3306");
+define("DB_DATABASE", "roomies");
+define("DB_USER","ellertfinnbogi");
+define("DB_PASSWORD","Tralli8");

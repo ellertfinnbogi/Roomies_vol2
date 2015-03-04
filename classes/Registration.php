@@ -68,11 +68,11 @@ class Registration
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
             // búum til database tengingu
-           // $this->db_connection = new mysqli(server, user, pw, db);
+            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 
             //Heroku database tenging
-             $this->db_connection = new mysqli($server, $username, $password, $db);
+             //$this->db_connection = new mysqli($server, $username, $password, $db);
 
 
 

@@ -16,17 +16,5 @@ else
 
 
 
-<<<<<<< HEAD
-?>
-=======
-// ... spurt hvort notandi se loggadur inn:
-if ($login->isUserLoggedIn() == true) {
-    // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
-   // include("views/logged_in.php");
-    //header("Location:views/logged_in.php");
-    echo 'Everything works now!';
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
-
 
 

@@ -21,17 +21,10 @@ class Login
     
 
 
-    /**
-<<<<<<< HEAD
-<<<<<<< HEAD
-     * keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
-=======
-     * keyrst sjálfkrafa þegar nýtt object af klasanum Login er búið til
->>>>>>> FETCH_HEAD
-=======
-     * keyrst sjálfkrafa þegar nýtt object af klasanum Login er búið til
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
-     */
+
+     // keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
+
+     
     public function __construct()
     {
         // störtum session
@@ -53,7 +46,7 @@ class Login
      */
     private function dologinWithPostData()
     {
-<<<<<<< HEAD
+
 
         //Heroku shit.. not in use!
 
@@ -64,8 +57,8 @@ class Login
  $password = $url["pass"];
   $db = substr($url["path"], 1);*/
 
-=======
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
+
+
         // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";
@@ -74,47 +67,14 @@ class Login
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
             // búum til db tengingu með breytum fra db.php
-<<<<<<< HEAD
-            //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,'3306');
-            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,DB_PORT);
-=======
-            //$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
 
-            //Heroku CLEARDB:
-           // $db_connection = new mysqli($server, $username, $password, $db);
+           
+            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,DB_PORT);
+
+   
             
 
-<<<<<<< HEAD
-=======
-            if ($conn->ping()) {
-                printf ("Our connection is ok!\n");
-            }
-            else {
-                printf ("Error: %s\n", $conn->error);
-            }
 
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
-            // breytum í stafasett utf8
-            if (!$this->db_connection->set_charset("utf8")) {
-                $this->errors[] = $db_connection->error;
-            }
-
-            // ef engir errorar
-            if (!$this->db_connection->connect_errno) {
-
-<<<<<<< HEAD
-
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
-
-              
-
-
-=======
-                
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
-
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
                 // faaum allar upplýsingar um userinn sem var að logg sig inn
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users

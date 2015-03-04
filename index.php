@@ -1,6 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
+
 
 /**
  * PHP login script / Vid reynum ad nota audveldan hreinan koda.
@@ -13,7 +12,6 @@
  * @license http://opensource.org/licenses/MIT MIT License - leyfid 
  */
 
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
 // Skodum her lagmarks PHP utgafu
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");

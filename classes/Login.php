@@ -7,7 +7,7 @@
 class Login
 {
     /**
-     * @var object  database tengingin
+     * @var object  database tengingin.
      */
     private $db_connection = null;
     /**

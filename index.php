@@ -1,4 +1,19 @@
 <?php
+<<<<<<< HEAD
+=======
+
+/**
+ * PHP login script / Vid reynum ad nota audveldan hreinan koda.
+ * Getum notad www.php-login.net til frekari adstodar vid log in.
+ *
+ * Notkun a PHP Session og password-hashing kemur fram her sem er naudsynlegt fyrir kerfid.
+ *
+ * @author Panique hofundur
+ * @link https://github.com/panique/php-login-minimal/ github kennsla
+ * @license http://opensource.org/licenses/MIT MIT License - leyfid 
+ */
+
+>>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
 // Skodum her lagmarks PHP utgafu
 if (version_compare(PHP_VERSION, '5.3.3', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");

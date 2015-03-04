@@ -2,7 +2,11 @@
         error_reporting(E_ALL);
         ini_set("display_errors", 1);
 /**
+<<<<<<< HEAD
  * Configuration for: Database Connection Grunnurinn
+=======
+ *  Database Grunnurinn
+>>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
  */
 
 

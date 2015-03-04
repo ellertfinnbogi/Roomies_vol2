@@ -20,7 +20,11 @@ body
    inline-box-align: initial;
 
 }
-
+table,td,tr
+{
+   color:red;
+   font-size: 24pt;
+}
 label
 {
    color: #2fa2d9;

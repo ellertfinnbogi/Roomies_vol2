@@ -72,9 +72,7 @@ class Login
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,DB_PORT);
 
    
-            
-
-
+            $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
                 // faaum allar upplýsingar um userinn sem var að logg sig inn
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users
@@ -105,7 +103,7 @@ class Login
                 $this->errors[] = "Database connection problem.";
             }
         }
-    }
+    
 
     /**
      * gerum log out

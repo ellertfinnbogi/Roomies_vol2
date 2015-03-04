@@ -2,10 +2,16 @@
 require_once("../classes/Login.php");
 $sess = new Login();
 //$sess->function __construct();
-
+echo "<link rel='stylesheet' href='../css/look.css'>";
 if($_SESSION['user_login_status'] == 1)
 {
-	echo 'great success';
+	echo "great success <br \>";
+
+	echo "<table>";
+		echo "<td>".$_SESSION['user_name']."<tr>";
+	
+echo "</table>";
+
 }
 else
 {
@@ -15,6 +21,8 @@ else
 
 
 
+?>
 
+<a href="../index.php?logout">Logout</a>
 
 

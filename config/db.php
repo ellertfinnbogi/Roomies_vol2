@@ -11,4 +11,4 @@ define("DB_HOST", "db4free.net");
 define("DB_PORT", "3306");
 define("DB_DATABASE", "roomies");
 define("DB_USER","ellertfinnbogi");
-define("DB_PASSWORD","Tralli8");
+define("DB_PASSWORD","");

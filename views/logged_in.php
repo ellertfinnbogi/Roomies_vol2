@@ -24,6 +24,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	//$sql = "SELECT todo FROM todo where user_name =". $_SESSION['user_name'] . ";";
 	
 	$result = $conn->query($sql);
+	echo substr(md5(rand()), 0, 12);
 
 	echo 	"<table><tr><th>Verkefni</th><th>Hver á verk</th><th>Klára fyrir</th></tr>";
 	if($result->num_rows > 0)
@@ -41,13 +42,14 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 
 
 }
-else
+else if($_SESSION['user_login_status'] == 1 && $res['room'] == null)
 {
-	//header('HTTP/1.0 403 Forbidden');
-    die('You are not allowed to access this file.');  
-    echo "<a href='../index.php?logout'>Logout</a>";
+	echo 'trausta magic';
 }
-
+else 
+{
+	die('Run you fool!');
+}
 
 
 ?>

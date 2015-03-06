@@ -20,10 +20,27 @@ body
    inline-box-align: initial;
 
 }
-table,td,tr
+tbody
+{
+    /*color:red;
+   font-size: 24pt;*/
+
+}
+th
 {
    color:red;
    font-size: 24pt;
+   padding-right:15px;
+   border-bottom: 1pt solid;
+   
+   
+}
+td,tr
+{
+   color:black;
+   font-size:14pt;
+
+
 }
 label
 {

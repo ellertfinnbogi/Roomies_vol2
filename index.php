@@ -26,6 +26,7 @@ require_once("config/db.php");
 
 // Hlada load i login class
 require_once("classes/Login.php");
+//include("views/header.html");
 
 // buum til login object. Tegar tetta object er buid til ser tad sjalft um login/logout virknina
 // svo tessi eina lina ser um allt login processid. 

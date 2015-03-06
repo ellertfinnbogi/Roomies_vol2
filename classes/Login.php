@@ -117,6 +117,11 @@ class Login
         $this->messages[] = "You have been logged out.";
 
     }
+    public function getDbConnection()
+     {
+        
+         return new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,DB_PORT);
+     }
 
     /**
      * forum aftur a "forsíðu"

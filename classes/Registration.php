@@ -7,11 +7,8 @@
 class Registration
 {
     /**
-<<<<<<< HEAD
      * @var object $db_connection The database connection tengingin
-=======
      * @var object $db_connection database tengingin
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
      */
     private $db_connection = null;
     /**
@@ -24,15 +21,9 @@ class Registration
     public $messages = array();
 
     /**
-<<<<<<< HEAD
-<<<<<<< HEAD
      * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
-=======
      * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
->>>>>>> FETCH_HEAD
-=======
      * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
      */
     public function __construct()
     {
@@ -76,20 +67,18 @@ class Registration
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
             // búum til database tengingu
-<<<<<<< HEAD
+
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 
             //Heroku database tenging
              //$this->db_connection = new mysqli($server, $username, $password, $db);
-=======
+
            // $this->db_connection = new mysqli(server, user, pw, db);
 
 
             //Heroku database tenging
-             $this->db_connection = new mysqli($server, $username, $password, $db);
->>>>>>> 5f11c09be418af0d151e69204e22907b3218942a
-
+            // $this->db_connection = new mysqli($server, $username, $password, $db);
 
 
 

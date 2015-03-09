@@ -11,7 +11,11 @@ body
 	font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
 }
 
-
+h2
+{
+   color:#2fa2d9;
+   text-decoration: italic;
+}
 .member_login
 {
    float: top;
@@ -24,12 +28,14 @@ tbody
 {
     /*color:red;
    font-size: 24pt;*/
+   max-width: 800px;
+   float:left;
 
 }
 th
 {
-   color:red;
-   font-size: 24pt;
+   color:#2fa2d9;
+   font-size: 18pt;
    padding-right:15px;
    border-bottom: 1pt solid;
    
@@ -39,9 +45,11 @@ td,tr
 {
    color:black;
    font-size:14pt;
-
+   max-width:80px;
+   word-wrap: break-word; 
 
 }
+
 label
 {
    color: #2fa2d9;
@@ -56,12 +64,22 @@ h1
 	text-align: middle;
 
 }
-
+select option
+{
+   color:red;
+}
 img
 {
 	height:250px;
 	width: 400px;
 	text-align: center;
+}
+.makejob
+{
+   width:80px;
+   height:40px;
+   float:right
+
 }
 
 
@@ -69,6 +87,22 @@ img
 	width: 483px;
 	text-align: center;
 	margin: 50px auto;
+}
+.container
+{
+   width:200px;
+   height:400px;
+   float:right;
+   padding-right: 25px;
+   display: none;
+}
+.container input label
+{
+   width:200px;
+   height:400px;
+   float:right;
+   padding-right:25px;
+  
 }
 
 .employees {

@@ -113,6 +113,7 @@ class Login
         // eyðum sessioninu af notandanum
         $_SESSION = array();
         session_destroy();
+        printf("<script>location.href='index.php'</script>");
         // skrifum á skjá
         $this->messages[] = "You have been logged out.";
 

@@ -1,5 +1,5 @@
 <?php
-// show potential errors / feedback (from login object) Villumelding
+//  Villumelding
 if (isset($login)) {
     if ($login->errors) {
         foreach ($login->errors as $error) {
@@ -14,7 +14,7 @@ if (isset($login)) {
 }
 ?>
 
-<!-- login form box -->
+<!-- login útlit -->
 <form method="post" action="index.php" name="loginform">
 
     <label for="login_input_username">Username</label>

@@ -1,25 +1,13 @@
 <?php
 class UserFunctions
 {
-    /**
-     * @var object $db_connection The database connection tengingin
-     * @var object $db_connection database tengingin
-     */
+    
     private $db_connection = null;
-    /**
-     * @var array $errors fylki af errors
-     */
+    
     public $errors = array();
-    /**
-     * @var array $messages fylki af skilboðum
-     */
+    
     public $messages = array();
 
-    /**
-     * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
-     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
-     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
-     */
     public function savejob()
     {
  
@@ -49,7 +37,7 @@ class UserFunctions
                 $todo = $this->db_connection->real_escape_string(strip_tags($_POST['todo_list'], ENT_QUOTES));
                 $user_resp = $this->db_connection->real_escape_string(strip_tags($_POST['personresponsible'], ENT_QUOTES));
                 $date = $this->db_connection->real_escape_string(strip_tags($_POST['date'], ENT_QUOTES));
-
+                // kúnst til að snúa við strengnum sem inniheldur dagsetningu
                 $temp_year = substr($date,0,4);
                 $temp_month = substr($date,4,3);
                 $temp_date = substr($date,8,2);
@@ -63,9 +51,8 @@ class UserFunctions
                             
                     $query_new_job_insert = $this->db_connection->query($sql);
 
-                    // verkefnihefur verið bætt við
+                    // verkefni hefur verið bætt við
                     if ($query_new_job_insert) {
-                        //header('Location: logged_in.php?success=true');
                         printf("<script>location.href='logged_in.php'</script>");
                     } else {
                         $this->errors[] = "Eitthvað klikkaði við skráningu nýs verkefnis, vinsamlegast farðu tilbaka og reyndu aftur";
@@ -73,14 +60,6 @@ class UserFunctions
                 }
 
     }
-
-
-
-
-
-
-
-
 
 }
 ?>

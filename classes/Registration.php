@@ -6,25 +6,13 @@
  */
 class Registration
 {
-    /**
-     * @var object $db_connection The database connection tengingin
-     * @var object $db_connection database tengingin
-     */
+   
     private $db_connection = null;
-    /**
-     * @var array $errors fylki af errors
-     */
+   
     public $errors = array();
-    /**
-     * @var array $messages fylki af skilboðum
-     */
+    
     public $messages = array();
-
-    /**
-     * keyrist sjálfkrafa þegar nýtt instance af registaration er búið til.        
-     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
-     * keyrist sjálfkrafa þegar nýtt object af registaration er búið til.        
-     */
+    //keyrist þegar nýtt object er búið til .
     public function __construct()
     {
         if (isset($_POST["register"])) {
@@ -69,18 +57,6 @@ class Registration
             // búum til database tengingu
 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
-
-            //Heroku database tenging
-             //$this->db_connection = new mysqli($server, $username, $password, $db);
-
-           // $this->db_connection = new mysqli(server, user, pw, db);
-
-
-            //Heroku database tenging
-            // $this->db_connection = new mysqli($server, $username, $password, $db);
-
-
 
             // setjum stafasett sem utf8
             if (!$this->db_connection->set_charset("utf8")) {

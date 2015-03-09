@@ -6,8 +6,6 @@ $sess = new Login();
 $conn = $sess->getDbConnection();
 
 
-
-
 $null_check = "SELECT room from users where user_name = '". $_SESSION['user_name'] . "';";
 $null_check_result = $conn->query($null_check);
 $res = $null_check_result->fetch_assoc();
@@ -16,7 +14,6 @@ echo "<meta charset='utf-8' >";
 echo "<link rel='stylesheet' href='../css/look.css'>";
 if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 {
-
 	
 	echo "<h2>VERKEFNASKRÁ fyrir herbergi: ".$_SESSION['room']." </h2>" ;
 	?>
@@ -94,7 +91,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
             $user_function->savejob();
         }
 
-// hér búum við til takka sem getur skráð okkur úr rúminu.
+// hér búum við til takka sem getur skráð okkur úr room-inu.
 $form = <<<EOT
 <form action="" method ="POST">
 <br /><input type="submit" value="Hætta í room-i" name="quit_room" />
@@ -102,20 +99,19 @@ $form = <<<EOT
 EOT;
 
 echo $form;
-// ef ýtt er á takkan.
+// ef ýtt er á takkann hætta í room-i.
 
 if(isset($_POST['quit_room'])){
 	$sql = "UPDATE users  SET room = NULL WHERE user_name = '" . $_SESSION['user_name'] ."'; ";                
 	$result= $conn->query($sql);
 	// ef skipunin virkaði þá refreshum við síðuna.
+	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
+	
 	if($result){
 			printf("<script>location.href='logged_in.php'</script>");
 	}
 
-	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
-
-	}
-
+}
 
 }
 else if($_SESSION['user_login_status'] == 1 && $res['room'] == null)

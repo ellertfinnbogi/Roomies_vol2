@@ -3,19 +3,15 @@
 
 // Skodum her lagmarks PHP utgafu
 
-//virðist vera vesen að skrá sig inn á gamla notendur eftir að ég hef commentað þetta út. Hash aðferðin örugglega eh öðurvísi.
-
-/*if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-    exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
-} else*/ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
     // Ef vid stydjumst vid PHP 5.3 eda 5.4 verdum vid ad includa password_api_compatibility_library.php
-    // Tilgangur tessa safns er ad baeta PHP5.5 password hashing fyrir function i eldri utgafum af PHP
-    //ekki í notkun eins og er.
+    // Tilgangur tessa safns er ad baeta PHP5.5 password hashing fyrir function i eldri utgafum af PHP.
 require_once("libraries/password_compatibility_library.php");
 }
+//
 //require_once("views/header.html");
 
-// include configid fyrir breyturnar i tengingunni vid database
+// include config fyrir breyturnar i tengingunni vid database
 require_once("config/db.php");
 
 // hlada the registration class

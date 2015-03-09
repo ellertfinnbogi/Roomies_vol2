@@ -6,25 +6,14 @@
  */
 class Login
 {
-    /**
-     * @var object  database tengingin.
-     */
+    
     private $db_connection = null;
-    /**
-     * @var array fylki af errors
-     */
+   
     public $errors = array();
-    /**
-     * @var array fylki of success / neutral messages
-     */
+   
     public $messages = array();
     
-
-
-
-     // keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til
-
-     
+     // keyrst sjálfkrafa þegar nýtt instance af klasanum Login er búið til 
     public function __construct()
     {
         // störtum session
@@ -46,19 +35,6 @@ class Login
      */
     private function dologinWithPostData()
     {
-
-
-        //Heroku shit.. not in use!
-
- /*$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-  $server = $url["host"];
- $username = $url["user"];
- $password = $url["pass"];
-  $db = substr($url["path"], 1);*/
-
-
-
         // athugum login input
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";
@@ -66,12 +42,9 @@ class Login
             $this->errors[] = "Password field was empty.";
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
-            // búum til db tengingu með breytum fra db.php
-
-           
+            // búum til db tengingu með breytum fra db.php      
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE,DB_PORT);
 
-   
             $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
                 // faaum allar upplýsingar um userinn sem var að logg sig inn
                 $sql = "SELECT user_name, user_email, user_password_hash
@@ -126,7 +99,6 @@ class Login
 
     /**
      * forum aftur a "forsíðu"
-     * @return boolean user's login status
      */
     public function isUserLoggedIn()
     {

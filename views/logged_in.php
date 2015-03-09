@@ -87,6 +87,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 
 		echo "</table>";
 	}
+	else{echo "</table>";}
 
 	?>
 	<!-- ***Hérna er formið fyrir að skrá inní todo  *** -->
@@ -144,13 +145,91 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
             $user_function->savejob();
         }
 
+// hér búum við til takka sem getur skráð okkur úr rúminu.
+$form = <<<EOT
+<form action="" method ="POST">
+<br /><input type="submit" value="Hætta í room-i" name="quit_room" />
+</form>
+EOT;
 
+echo $form;
+// ef ýtt er á takkan.
+
+if(isset($_POST['quit_room'])){
+	$sql = "UPDATE users  SET room = NULL WHERE user_name = '" . $_SESSION['user_name'] ."'; ";                
+	$result= $conn->query($sql);
+	// ef skipunin virkaði þá refreshum við síðuna.
+	if($result){
+			printf("<script>location.href='logged_in.php'</script>");
+	}
+
+	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
+
+	}
 
 
 }
 else if($_SESSION['user_login_status'] == 1 && $res['room'] == null)
 {
-	echo 'trausta magic';
+	
+// formið join og create room.
+$form = <<<EOT
+<form action="" method ="POST">
+Þú ert ekki skráð/ur í neitt Room. Þú getur tengst Room-i eða búið til nýtt Room. <br />
+<input type = "text" name="room" />&emsp;<input type="submit" value="tengjast room numeri" name="join_room" /> <br />
+
+<br /><input type="submit" value="Búa til nýtt room" name="create_room" />
+
+</form>
+EOT;
+
+echo $form;
+	// ef klikkað er að create room þá generateast 12 stafa random room number.
+	if(isset($_POST['create_room'])){
+		$random_room = substr(md5(rand()), 0, 12);
+		$sql = "UPDATE users  SET room = '$random_room' WHERE user_name = '" . $_SESSION['user_name'] ."'; ";
+                    
+		$result= $conn->query($sql);
+		// ef skipunin virkaði þá refreshum við síðuna.
+		if ($result) {
+					printf("<script>location.href='logged_in.php'</script>");
+
+		}
+
+		//pretun út error ef það eru einhverjir.
+		if (!$result) {
+    		$message  = 'Invalid query: ' . mysql_error() . "\n";
+    		$message .= 'Whole query: ' . $query;
+    		die($message);
+		}
+	}
+	else if(isset($_POST['join_room'])){
+		$room_name = $conn->real_escape_string(strip_tags($_POST['room'], ENT_QUOTES));
+
+		$room_exists_check = "SELECT room from users where room = '$room_name'";
+		$result = $conn->query($room_exists_check);
+
+		if($result->num_rows > 0){
+			$sql = "UPDATE users  SET room = '$room_name' WHERE user_name = '" . $_SESSION['user_name'] ."'; ";       
+			$result= $conn->query($sql);
+			// ef skipunin virkaði þá refreshum við síðuna.
+			if ($result) {
+					 printf("<script>location.href='logged_in.php'</script>");
+
+		}
+
+		//pretun út error ef það eru einhverjir.
+			if (!$result) {
+    			$message  = 'Invalid query: ' . mysql_error() . "\n";
+    			$message .= 'Whole query: ' . $query;
+    			die($message);
+			}
+		}
+		else{
+			echo 'Þetta room er ekki til.';
+		}
+	}
+
 }
 else 
 {

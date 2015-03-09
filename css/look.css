@@ -41,6 +41,14 @@ th
    
    
 }
+
+#todo
+{
+   width: 100px;
+}
+
+
+
 td,tr
 {
    color:black;
@@ -66,7 +74,7 @@ h1
 }
 select option
 {
-   color:red;
+   color:#2fa2d9;
 }
 img
 {
@@ -81,7 +89,10 @@ img
    float:right
 
 }
-
+ul li
+{
+   list-style-type: none;
+}
 
 .wrap {
 	width: 483px;
@@ -95,6 +106,7 @@ img
    float:right;
    padding-right: 25px;
    display: none;
+
 }
 .container input label
 {
@@ -102,6 +114,7 @@ img
    height:400px;
    float:right;
    padding-right:25px;
+   list-style-type: none;
   
 }
 

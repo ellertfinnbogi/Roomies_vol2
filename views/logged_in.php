@@ -73,6 +73,8 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	
 
 	echo 	"<table><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
+
+
 	if($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
@@ -90,6 +92,32 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
         if(isset($_POST["savejob"])) {
             $user_function->savejob();
         }
+    //payment taflan keyrð upp
+    echo "<h2>GREIÐSLULISTI </h2>" ;
+
+    $sql2 = "SELECT user_name,value,about_pay from payment where room = '" . $_SESSION['room'] ."';";
+	
+	$result2 = $conn->query($sql2);
+	 echo 	"<table><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th></tr>";
+
+	if($result2->num_rows > 0)
+	{
+		while($row = $result2->fetch_assoc())
+		{
+			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['value'] . "</td><td>". $row['about_pay']. "</td></tr>";
+			
+		}
+
+		echo "</table>";
+	}
+	else{echo "</table>";}
+
+		//sér um að skrá í gagnagrunn ef klikkað er á Skrá payment
+//		$user_function = new UserFunctions();
+//        if(isset($_POST["savejob"])) {
+ //           $user_function->savejob();
+  //      }
+
 
 // hér búum við til takka sem getur skráð okkur úr room-inu.
 $form = <<<EOT

@@ -151,7 +151,6 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	<div class="col-md-1" id="assignments">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Verkefnaskrá</button>
 </div>
-</div>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -178,6 +177,42 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 		echo "</table></div></div></div>";
 	}
 	else{echo "</table></div></div></div>";}
+
+?>
+
+		<!-- Large modal -->
+	<div class="col-md-1" id="payments_table">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".payments">Útlagt</button>
+</div>
+<div class="modal fade payments" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<?php
+	$sql2 = "SELECT user_name,value,about_pay from payment where room = '" . $_SESSION['room'] ."';";
+	
+	$result2 = $conn->query($sql2);
+	 echo 	"<table><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th></tr>";
+
+	if($result2->num_rows > 0)
+	{
+		while($row = $result2->fetch_assoc())
+		{
+			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['value'] . "</td><td>". $row['about_pay']. "</td></tr>";
+			
+		}
+
+		echo "</table></div></div></div>";
+	}
+	else{echo "</table></div></div></div>";}
+
+
+
+
+
+
+
+
 
 		//sér um að skrá í gagnagrunn.
 		$user_function = new UserFunctions();

@@ -102,7 +102,13 @@ img
 }
 #assignments
 {
-   
+   margin:0 17px 0 0;
+}
+
+#payments_table
+{
+  margin:0 200px 0 0;
+  float:left;
 }
 
 #quitroom

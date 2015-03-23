@@ -11,30 +11,72 @@ $null_check_result = $conn->query($null_check);
 $res = $null_check_result->fetch_assoc();
 $_SESSION['room'] = $res['room'];
 echo "<meta charset='utf-8' >";
-echo "<link rel='stylesheet' href='../css/look.css'>";
+//echo "<link rel='stylesheet' href='../css/look.css'>";
 if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 {
 	
-	echo "<h2>VERKEFNASKRÁ fyrir herbergi: ".$_SESSION['room']." </h2>" ;
 	?>
+	
 	<!-- ***Hérna er formið fyrir að skrá inní todo  *** -->
 	<script src="../js/display_functions.js"></script>
-	<div class="makejob">
-	   <a href="#" onclick="toggle_visibility('list1');">
-      <p>Skrá verk</p>
-      </a>
-	<div id="list1" class="container">
-		
-	         <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savejob">
-	         <ul>
-	         <li>
-	            <label for="todo">Todo </label>
-	             <input id="todo_list" type="text" name="todo_list" required>
-	             </li>
-	             <li>
-	             
-	             <label for="personresponsible">Hver á að gera verk </label>
-	             <?php
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/look.css">
+<!-- Finally the bootbar CSS and JS -->
+<script src="../js/bootbar.js"></script>
+
+<!-- ***Nota seinna fyrir notification**** -->
+<!--<script>$(document).ready(function() {
+	$.bootbar.info("This is a simple info bar. Click the &times; to close."); 
+
+}); </script> -->
+
+
+</head>
+<body>
+<div class="row" id="header">
+	<div class="col-md-8">
+	<?php
+		echo "<h2>Velkomin/n: ".ucfirst($_SESSION['user_name'])." </h2>" ;
+	?>
+
+	</div>
+	<div class="col-md-4" id="logout">
+
+	<a href="../index.php?logout">Logout</a>
+	</div>
+
+</div>
+<div class="container">
+<div class="row">
+	<div class="col-md-1" id="makejob">
+		<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#todo_job" data-whatever="skra_verkefni">Skrá verkefni</button>
+	</div>	
+	<div class="col-md-1" id="makejob">
+		<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#payment" data-whatever="skra_utjold">Skrá útgjöld</button>
+	</div>
+
+		<!-- Skrá verkefni -->
+		<div class="modal fade" id="todo_job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="exampleModalLabel">Settu inn upplýsingar fyrir verkefni</h4>
+			      </div>
+			      <div class="modal-body">
+			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savejob">
+
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">Verkefni</label>
+			            <input type="text" class="form-control" name="todo_list" id="recipient-name">
+			          </div>
+			          <div class="form-group">
+			            <label for="message-text" name="person_responsible" class="control-label"></label>
+			            <?php
 	             echo "<select name='personresponsible'>";
 					echo '<option value="">'.'--- Veldu hérna ---'.'</option>';
 					$query = "SELECT user_name FROM users where room = '". $_SESSION['room'] ."';";
@@ -53,26 +95,78 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 					echo '</select>';
 
 	             ?>
-	             </li>
-	             <li>
-	             <label for="date">Dagsetning</label>
-	             <input id="date" type="date" name="date" required />
-	             </li>
-	             
-	             <input type="submit"  name="savejob" value="Skrá verk" />
-	             </ul>
-	         </form>
-        </div>
-	</div>
+	             </div>
+	             <div class="form-group">
+	             		<label for="date" class="control-label">Dagsetning</label>
+			            <input type="date" class="form-control" name="date" id="recipient-name">
+			          </div>
+			        
+			      </div>
+			      <div class="modal-footer">
+			        
+			        <input type="submit"  name="savejob" value="Skrá verk" />
+			      </div>
+			      </form>
+			    </div>
+			  </div>
+			  </div>
+		<!-- Skrá upphæð -->
+		<div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+		 <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="exampleModalLabel">Settu inn upphæð sem þú hefur lagt út</h4>
+			      </div>
+			      <div class="modal-body">
+			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savepayment">
+
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">Upphæð</label>
+			            <input type="number" class="form-control" name="payment_amount" id="recipient-name">
+			          </div>
+	             <div class="form-group">
+	             		<label for="date" class="control-label">Fyrir hverju</label>
+			            <input type="text" class="form-control" name="payment" id="recipient-name">
+			          </div>
+			       
+			      <div class="modal-footer">
+			        
+			        <input type="submit"  name="savepayment" value="Skrá verk" />
+			      </div>
+			      </form>
+			    </div>
+			    </div>
+			    </div>
+			    </div>
+			
+
+
+	      
+
+
+
+	<!-- Large modal -->
+	<div class="col-md-1" id="assignments">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Verkefnaskrá</button>
+</div>
+</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+     
+
+
 	<?php
 
 
 	$sql = "SELECT user_name,todo,user_resp,do_date from todo where room = '" . $_SESSION['room'] ."';";
 	
 	$result = $conn->query($sql);
-	
 
-	echo 	"<table><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
+	echo "<table class='table teable-striped'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
 	if($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
@@ -81,24 +175,37 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 			
 		}
 
-		echo "</table>";
+		echo "</table></div></div></div>";
 	}
-	else{echo "</table>";}
+	else{echo "</table></div></div></div>";}
 
-		//sér um að skrá í gagnagrunn ef klikkað er á Skrá verk
+		//sér um að skrá í gagnagrunn.
 		$user_function = new UserFunctions();
+		
         if(isset($_POST["savejob"])) {
+        	
             $user_function->savejob();
         }
+        if(isset($_POST["savepayment"]))
+        {
+        	$user_function->savepayment();
+        }
+
 
 // hér búum við til takka sem getur skráð okkur úr room-inu.
 $form = <<<EOT
+<br />
+<div class="col-md-1" id="quitroom">
+
 <form action="" method ="POST">
-<br /><input type="submit" value="Hætta í room-i" name="quit_room" />
+	<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
+<br />
 </form>
+</div>
 EOT;
 
 echo $form;
+echo '</div>';
 // ef ýtt er á takkann hætta í room-i.
 
 if(isset($_POST['quit_room'])){
@@ -183,6 +290,6 @@ else
 }
 ?>
 
-<a href="../index.php?logout">Logout</a>
+
 
 

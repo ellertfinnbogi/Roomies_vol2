@@ -1,6 +1,6 @@
 function toggle_visibility(id) {
  
-    	var thelist = document.getElementsByClassName("container");
+    	var thelist = document.getElementsByClassName("container1");
     	for (var i = 0; i < thelist.length; i++) {
     		thelist[i].style.display = 'none';
     	}
@@ -11,3 +11,4 @@ function toggle_visibility(id) {
     		e.style.display = 'block';
     	}
     }
+

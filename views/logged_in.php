@@ -227,6 +227,98 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
         }
 
 
+
+
+
+
+
+////////// Sjá skuldastöðu milli einstaklinga///////////////////////////////////////
+
+	// höldum utan um fjölda í herbergi svo hægt sé að deila upphæðinni niður.
+	$countUsers = "SELECT COUNT(user_name) FROM users WHERE room='". $_SESSION['room']."';";
+	$resultCountUsers = $conn->query($countUsers);
+
+	if($resultCountUsers->num_rows >0)
+	{
+		while($rowcount = $resultCountUsers->fetch_assoc())
+		{	// vistum fjölda users í breytuna totalUsers.
+    		$totalUsers = $rowcount['COUNT(user_name)'];
+		}
+	}
+	// höldum utan um upphæðina sem "þú"" hefur lagt út. 
+	$yourCredit = "SELECT SUM(value) FROM payment WHERE user_name='". $_SESSION['user_name']."';";
+	$yourCreditResult = $conn->query($yourCredit);
+
+	if($yourCreditResult->num_rows >0)
+	{
+		while($rowCredit = $yourCreditResult->fetch_assoc())
+		{	// vistum í breytuna.
+    		$totalCredit = $rowCredit['SUM(value)'];
+ 
+		}
+	}
+	// breyta sem heldur utan um hvað hver og einn skuldar "þér".
+	$creditPerUser = $totalCredit/$totalUsers;
+
+	$sql = "SELECT user_name FROM users WHERE room ='" . $_SESSION['room']."';";
+	$results = $conn->query($sql);
+	
+
+	if($results->num_rows > 0)
+	{
+		echo 	"<table><caption><h2>SKULDASTAÐA MILLI MEÐLEIGJENDA</h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
+		while($row = $results->fetch_assoc())
+		{	
+			// prentum ekki út okkar user name.
+			if($_SESSION['user_name'] == $row['user_name']){
+				continue;
+			}
+			else{
+				
+				$sql1 = "SELECT SUM(value) FROM payment WHERE user_name =  '$row[user_name]'  AND room = '".$_SESSION['room']."';";
+				$results1 = $conn->query($sql1);
+
+				if($results1->num_rows>0){
+					
+					while ($row1 = $results1->fetch_assoc()) {
+						// skuldastaða users.
+						$currentDebt = ($row1['SUM(value)']/$totalUsers)- $creditPerUser;
+						// ef þú skildar honum
+						if($currentDebt>0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td>". $currentDebt. " Kr.</td><td></td></tr>";
+						}
+						// ef hann skuldar þér 
+						else if($currentDebt<0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td></td><td>". abs($currentDebt). " Kr.</td></tr>";
+						}
+						else if($currentDebt==0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td>0 kr.</td><td>0 kr.</td></tr>";
+						}
+						else{
+							continue;
+						}
+					}
+				}
+			}
+		}
+		echo "</table>";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // hér búum við til takka sem getur skráð okkur úr room-inu.
 $form = <<<EOT
 <br />

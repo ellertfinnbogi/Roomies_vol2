@@ -33,6 +33,26 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	$.bootbar.info("This is a simple info bar. Click the &times; to close."); 
 
 }); </script> -->
+<script>
+$(function() {
+    $("table#assignm input[type=checkbox]").change(function() {
+        if ($(this).is(":checked")) {
+            $(this).closest("tr").find("td").each(function() {
+                $(this).removeClass("red");
+                $(this).addClass("green");
+
+            });
+        } else {
+            $(this).closest("tr").find("td").each(function() {
+                $(this).removeClass("green");
+                $(this).addClass("red");
+            });
+        }
+
+    });
+});
+
+</script>
 
 
 </head>
@@ -161,20 +181,24 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	<?php
 
 
-	$sql = "SELECT user_name,todo,user_resp,do_date from todo where room = '" . $_SESSION['room'] ."';";
+	$sql = "SELECT user_name,todo,user_resp,do_date,done_bool from todo where room = '" . $_SESSION['room'] ."';";
 	
 	$result = $conn->query($sql);
 
-	echo "<table class='table teable-striped'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
+	echo "<table class='table teable-striped' id='assignm'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
 	if($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
 		{
-			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td> <td><input type='checkbox'></td></tr>";
+			echo "<tr><td class='red'>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td> <td><input type='checkbox'";
+			if($row['done_bool'] == 'X') {echo "checked='checked'>"."</td></tr>";}
+			else {echo "></td></tr>";}
+
 			
 		}
 
 		echo "</table></div></div></div>";
+		//echo $row['done'];
 	}
 	else{echo "</table></div></div></div>";}
 

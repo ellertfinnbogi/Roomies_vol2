@@ -130,6 +130,29 @@ img
    padding:25px 200px 0 0 ;
 
 }
+/*#assignm{
+  border:2px solid #ddd;
+  font-family:Helvetica;
+  font-size:12px;
+
+}*/
+
+
+/*#assingm td{
+  text-align:center;
+  border:1px solid #ddd;
+  padding:1px;
+}*/
+#assignmtd.red{
+  background:#f698aa;
+}
+#assignm td.green{
+  background:#a5f6a8;
+}
+#assignm input[type=button]{
+  border:1px solid #333;
+  background:#dcdcdc;
+}
 
 #header
 {

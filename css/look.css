@@ -46,7 +46,26 @@ th
    
    
 }
+.table-striped td
+{
+  font-size:12pt;
+}
+.table-striped th
+{
+  
+  background-color: white;
+  font-size:16pt;
+}
+#my_assignments tr
+{
+  font-size: 10pt;
 
+  color:red;
+  max-width: 100px;
+   word-wrap: break-word; 
+      margin-right: 15px;
+   padding-right: 15px;
+}
 #todo
 {
    width: 100px;
@@ -56,11 +75,12 @@ th
 
 td,tr
 {  
+  
    margin-right: 15px;
    padding-right: 15px;
    color:black;
    font-size:14pt;
-   max-width:80px;
+   max-width:200px;
    word-wrap: break-word; 
 
 }

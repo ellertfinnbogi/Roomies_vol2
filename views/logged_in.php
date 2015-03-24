@@ -185,7 +185,7 @@ $(function() {
 	
 	$result = $conn->query($sql);
 
-	echo "<table class='table teable-striped' id='assignm'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
+	echo "<table class='table table-striped' id='assignm'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
 	if($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
@@ -204,7 +204,7 @@ $(function() {
 
 ?>
 
-		<!-- Large modal -->
+		<!-- Verkefnaskrá -->
 	<div class="col-md-1" id="payments_table">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".payments">Útlagt</button>
 </div>
@@ -216,7 +216,7 @@ $(function() {
 	$sql2 = "SELECT user_name,value,about_pay from payment where room = '" . $_SESSION['room'] ."';";
 	
 	$result2 = $conn->query($sql2);
-	 echo 	"<table><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th></tr>";
+	 echo 	"<table class='table table-striped'><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th></tr>";
 
 	if($result2->num_rows > 0)
 	{
@@ -290,7 +290,7 @@ $(function() {
 
 	if($results->num_rows > 0)
 	{
-		echo 	"<table><caption><h2>SKULDASTAÐA MILLI MEÐLEIGJENDA</h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
+		echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda</h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
 		while($row = $results->fetch_assoc())
 		{	
 			// prentum ekki út okkar user name.
@@ -333,6 +333,31 @@ $(function() {
 
 
 
+
+
+
+
+	//setjum hérna verkefni sem innskráður notandi á
+
+
+	$sql = "SELECT todo,do_date FROM todo WHERE user_resp ='" . $_SESSION['user_name']."';";
+	$results = $conn->query($sql);
+	
+
+	if($results->num_rows > 0)
+	{
+		echo 	"<table class='table table-striped' id='my_assignments'><caption><h2>Verkefnin mín</h2></caption><tr><th>Verkefni</th><th id='value'>Dagsetning</th></tr>";
+		while($row = $results->fetch_assoc())
+		{	
+
+			echo "<tr><td>". $row['todo'] ."</td><td>". $row['do_date']. "</td><td></td></tr>";
+			
+			
+			
+			
+		}
+		echo "</table>";
+	}
 
 
 

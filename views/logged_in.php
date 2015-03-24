@@ -60,7 +60,7 @@ $(function() {
 <div class="row" id="header">
 	<div class="col-md-8">
 	<?php
-		echo "<h2>Velkomin/n: ".ucfirst($_SESSION['user_name'])." </h2>" ;
+		echo "<h2>Velkomin/n: ".ucfirst($_SESSION['user_name'])."&emsp;&emsp;&emsp;&emsp;&emsp; Herbergi: ".($_SESSION['room'])." </h2>" ;
 	?>
 
 	</div>

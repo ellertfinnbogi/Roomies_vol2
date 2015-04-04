@@ -34,34 +34,11 @@ if (isset($registration)) {
     if ($registration->messages) {
         foreach ($registration->messages as $message) {
             echo $message;
+            printf("<script>location.href='index.php'</script>");
         }
     }
 }
 ?>
 
-     <meta charset="utf-8" >
-     <link rel="stylesheet" href="css/look.css">
-     <link rel='shortcut icon' type='image/x-icon' href='img/roomies.ico' />
-<form method="post" action="register.php" name="registerform">
 
-    
-    <label for="login_input_username">Notendanafn (aðeins stafir og tölusaftir, 2 til 64 slög)</label>
-    <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
-    <br />
-
-    
-    <label for="login_input_email">Netfang notenda</label>
-    <input id="login_input_email" class="login_input" type="email" name="user_email" required />
-    <br />
-    <label for="login_input_password_new">Lykilorð (lágmark 6 stafir)</label>
-    <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
-    <br />
-    <label for="login_input_password_repeat">Endurtaka lykilorð</label>
-    <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
-    <br />
-    <input type="submit"  name="register" value="Búa til aðgang" />
-
-</form>
-
-
-<a href="index.php">Tilbaka á innskráningarsíðu</a>
+<!-- <a href="index.php">Tilbaka á innskráningarsíðu</a> -->

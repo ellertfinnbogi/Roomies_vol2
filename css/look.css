@@ -12,12 +12,13 @@ body
    width: auto;
 }
 
-h2
+h2 #change
 {
    padding-left: 60px;
    color:#2fa2d9;
    text-decoration: italic;
 }
+
 .member_login
 {
    float: top;
@@ -26,22 +27,13 @@ h2
    inline-box-align: initial;
 
 }
-tbody
-{
-    /*color:red;
-   font-size: 24pt;*/
-   float:left;
 
-}
-table
-{
-   width:800px;
-}
+
 th
 {
    color:#2fa2d9;
    font-size: 18pt;
-   padding-right:15px;
+   /*padding-right:15px;*/
    border-bottom: 1pt solid;
    
    
@@ -49,6 +41,8 @@ th
 .table-striped td
 {
   font-size:12pt;
+  text-align: left;
+
 }
 .table-striped th
 {
@@ -76,13 +70,17 @@ th
 td,tr
 {  
   
-   margin-right: 15px;
-   padding-right: 15px;
+/*   margin-right: 15px;
+   padding-right: 15px;*/
    color:black;
    font-size:14pt;
-   max-width:200px;
+   /*max-width:200px;*/
    word-wrap: break-word; 
 
+}
+.green
+{
+  background-color:lightgreen;
 }
 
 label
@@ -137,32 +135,26 @@ img
  
 }
 .alert-messages {
-    position: fixed;
+   /* position: fixed;*/
+   display:none;
     top: 0px;
     left: 0;
     right: 0;
     z-index: 10000000;
+ 
+   
 }
 
+#graph
+{
+  float:right;
+}
 #logout
 {
   
    padding:25px 200px 0 0 ;
 
 }
-/*#assignm{
-  border:2px solid #ddd;
-  font-family:Helvetica;
-  font-size:12px;
-
-}*/
-
-
-/*#assingm td{
-  text-align:center;
-  border:1px solid #ddd;
-  padding:1px;
-}*/
 #assignmtd.red{
   background:#f698aa;
 }
@@ -268,17 +260,6 @@ ul li
     background-color:#444;
     border-bottom: 1px solid #888;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .employees {
    width: 880px;

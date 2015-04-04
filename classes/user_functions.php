@@ -112,5 +112,75 @@ class UserFunctions
 
     }
 
+
+    public function jobsetasdone()
+    {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+        // setjum stafasett sem utf8
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+
+        // athugum hvort database tengingin se ekki í lagi,
+       if (!$this->db_connection->connect_errno) {
+
+            $todo_id= $this->db_connection->real_escape_string(strip_tags($_POST['todo_id'], ENT_QUOTES));
+
+          
+                // skrifum nýtt verkefni í gagangrunn
+                $sql ="UPDATE todo SET done_bool = 'X' WHERE id = $todo_id";
+                        
+                $query_new_job_insert = $this->db_connection->query($sql);
+
+                // verkefni hefur verið bætt við
+                if ($query_new_job_insert) {
+                    printf("<script>location.href='logged_in.php'</script>");
+                } else {
+                    $this->errors[] = "Eitthvað klikkaði við að skrá verk sem klárað";
+                   
+                }
+            }
+
+    }
+
+        public function jobsetnotdone()
+    {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+        // setjum stafasett sem utf8
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+
+        // athugum hvort database tengingin se ekki í lagi,
+       if (!$this->db_connection->connect_errno) {
+
+            $todo_id= $this->db_connection->real_escape_string(strip_tags($_POST['todo_id'], ENT_QUOTES));
+
+          
+                // skrifum nýtt verkefni í gagangrunn
+                $sql ="UPDATE todo SET done_bool = null WHERE id = $todo_id";
+                        
+                $query_new_job_insert = $this->db_connection->query($sql);
+
+                // verkefni hefur verið bætt við
+                if ($query_new_job_insert) {
+                    printf("<script>location.href='logged_in.php'</script>");
+                } else {
+                    $this->errors[] = "Eitthvað klikkaði við að skrá verk sem klárað";
+                   
+                }
+            }
+
+    }
+
+
+
+
+
+
 }
 ?>

@@ -1,0 +1,44 @@
+{
+    "cols": [
+        {
+            "label": "username",
+            "type": "string"
+        },
+        {
+            "label": "total",
+            "type": "number"
+        },
+        {
+            "label": "done",
+            "type": "number"
+        }
+    ],
+    "rows": [
+        {
+            "c": [
+                {
+                    "v": "atlisig1234"
+                },
+                {
+                    "v": 2
+                },
+                {
+                    "v": 0
+                }
+            ]
+        },
+        {
+            "c": [
+                {
+                    "v": "hitest"
+                },
+                {
+                    "v": 1
+                },
+                {
+                    "v": 0
+                }
+            ]
+        }
+    ]
+}

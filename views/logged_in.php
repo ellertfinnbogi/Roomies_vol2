@@ -16,8 +16,6 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 {
 	
 	?>
-	
-	<!-- ***Hérna er formið fyrir að skrá inní todo  *** -->
 	<script src="../js/display_functions.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
@@ -29,38 +27,24 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 <script src="../js/bootbar.js"></script>
 
 <!-- ***Nota seinna fyrir notification**** -->
-<!--<script>$(document).ready(function() {
-	$.bootbar.info("This is a simple info bar. Click the &times; to close."); 
 
-}); </script> -->
-<script>
-$(function() {
-    $("table#assignm input[type=checkbox]").change(function() {
-        if ($(this).is(":checked")) {
-            $(this).closest("tr").find("td").each(function() {
-                $(this).removeClass("red");
-                $(this).addClass("green");
+<script>function nameit() {
+	$.bootbar.info("Í dag er skuldadagur,mundu að greiða!! Smelltu á &times; til að loka");
+	$('.alert-messages').show();
 
-            });
-        } else {
-            $(this).closest("tr").find("td").each(function() {
-                $(this).removeClass("green");
-                $(this).addClass("red");
-            });
-        }
-
-    });
-});
-
-</script>
+}; 
+</script> 
 
 
 </head>
 <body>
+<div class="alert-messages">
+</div>
+<div class="container">
 <div class="row" id="header">
 	<div class="col-md-8">
 	<?php
-		echo "<h2>Velkomin/n: ".ucfirst($_SESSION['user_name'])." </h2>" ;
+		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." <h2>" ;
 	?>
 
 	</div>
@@ -70,7 +54,7 @@ $(function() {
 	</div>
 
 </div>
-<div class="container">
+
 <div class="row">
 	<div class="col-md-1" id="makejob">
 		<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#todo_job" data-whatever="skra_verkefni">Skrá verkefni</button>
@@ -85,17 +69,29 @@ $(function() {
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="exampleModalLabel">Settu inn upplýsingar fyrir verkefni</h4>
+			        <h2 id="modals" class="modal-title" id="exampleModalLabel">Settu inn upplýsingar fyrir verkefni<h2 id="modals">
 			      </div>
 			      <div class="modal-body">
 			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savejob">
 
-			          <div class="form-group">
-			            <label for="recipient-name" class="control-label">Verkefni</label>
-			            <input type="text" class="form-control" name="todo_list" id="recipient-name">
+			            
+			         <div class="form-group">
+			         <label for="recipient-name" class="control-label">Verkefni</label><br>
+			            <select name ="todo_list" for="recipient-name" class="control-label">
+			            <option value="" type="text" class="form-control" name="todo_list" id="recipient-name">---Veldu---</option>			           
+			            <option>Ryksuga</option>
+			            <option>Skúra</option>
+			            <option>Þrífa klósett</option>
+			            <option>Þrífa eldhúsið</option>
+			            <option>Þrífa stofu</option>
+			            <option>Taka til í eldhúsi</option>
+			            <option>Taka til í stofu</option>
+			            <option>Annað</option>
+			            </select>
 			          </div>
 			          <div class="form-group">
-			            <label for="message-text" name="person_responsible" class="control-label"></label>
+			            <label for="message-text" name="person_responsible" class="control-label">Ábyrgðarmaður</label><br>
+
 			            <?php
 	             echo "<select name='personresponsible'>";
 					echo '<option value="">'.'--- Veldu hérna ---'.'</option>';
@@ -137,7 +133,7 @@ $(function() {
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="exampleModalLabel">Settu inn upphæð sem þú hefur lagt út</h4>
+			        <h2 id="modals" class="modal-title" id="exampleModalLabel">Settu inn upphæð sem þú hefur lagt út</h2>
 			      </div>
 			      <div class="modal-body">
 			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savepayment">
@@ -160,6 +156,7 @@ $(function() {
 			    </div>
 			    </div>
 			    </div>
+
 			
 
 
@@ -174,44 +171,75 @@ $(function() {
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+    <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h2 id="modals" class="modal-title" id="greidsluskra">Verkefnaskrá</h2>
      
 
 
+
+<!-- Verkefnaskrá -->
 	<?php
 
 
-	$sql = "SELECT user_name,todo,user_resp,do_date,done_bool from todo where room = '" . $_SESSION['room'] ."';";
+	$sql = "SELECT id,user_name,todo,user_resp,do_date,done_bool from todo where room = '" . $_SESSION['room'] ."';";
 	
 	$result = $conn->query($sql);
 
-	echo "<table class='table table-striped' id='assignm'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th><th>Verk klárað?</th></tr>";
+	echo "<table class='table table-striped'><tr><th>Hver skáir</th><th id='todo'>Todo</th><th>Hver á verk</th><th>Klára fyrir</th></tr>";
 	if($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
 		{
-			echo "<tr><td class='red'>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td> <td><input type='checkbox'";
-			if($row['done_bool'] == 'X') {echo "checked='checked'>"."</td></tr>";}
-			else {echo "></td></tr>";}
-
 			
+			
+		
+			
+
+
+			 if($row['done_bool'] == 'X')
+			 {
+			 ?>
+			 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobnotdone">
+			 <?php
+			 echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+			 	echo "<tr class='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td><input type='submit'  name='setjobnotdone' value='Endurvekja'/>";
+			 }
+
+			 else
+			 {
+			 ?>
+			 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobasdone">
+			 <?php
+			 	echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+			 	echo "<tr><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']; 
+				echo "</td><td><input type='submit'  name='setjobasdone' value='Skrá verk klárað'/>";
+			 }
+
+			echo "</td></tr></form>";
+		
 		}
 
-		echo "</table></div></div></div>";
-		//echo $row['done'];
+		echo "</table></div></div></div></div>";
+	
 	}
-	else{echo "</table></div></div></div>";}
+	else{echo "</table></div></div></div></div>";}
+
 
 ?>
 
-		<!-- Verkefnaskrá -->
+		<!-- Greiðsluskrá -->
 	<div class="col-md-1" id="payments_table">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".payments">Útlagt</button>
 </div>
-<div class="modal fade payments" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade payments" tabindex="-1" role="dialog" aria-labelledby="greidsluskra" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+  
     <div class="modal-content">
+    <div class="modal-header">
+    
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h2 id="modals" class="modal-title" id="greidsluskra">Greiðsluskrá</h2>
 <?php
 	$sql2 = "SELECT user_name,value,about_pay from payment where room = '" . $_SESSION['room'] ."';";
 	
@@ -226,16 +254,9 @@ $(function() {
 			
 		}
 
-		echo "</table></div></div></div>";
+		echo "</table></div></div></div></div>";
 	}
-	else{echo "</table></div></div></div>";}
-
-
-
-
-
-
-
+	else{echo "</table></div></div></div></div>";}
 
 
 		//sér um að skrá í gagnagrunn.
@@ -248,6 +269,15 @@ $(function() {
         if(isset($_POST["savepayment"]))
         {
         	$user_function->savepayment();
+        }
+
+        if(isset($_POST["setjobasdone"])) {
+
+        	$user_function->jobsetasdone();
+        }
+        if(isset($_POST["setjobnotdone"])) {
+
+        	$user_function->jobsetnotdone();
         }
 
 
@@ -290,16 +320,17 @@ $(function() {
 
 	if($results->num_rows > 0)
 	{
-		echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda</h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
+		echo "<div class='row'><div class='col-md-6'>";
 		while($row = $results->fetch_assoc())
 		{	
 			// prentum ekki út okkar user name.
 			if($_SESSION['user_name'] == $row['user_name']){
 				continue;
+
 			}
 			else{
-				
-				$sql1 = "SELECT SUM(value) FROM payment WHERE user_name =  '$row[user_name]'  AND room = '".$_SESSION['room']."';";
+				echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda<h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
+				$sql1 = "SELECT SUM(value) FROM payment WHERE user_name =  '$row[user_name]'  AND room='". $_SESSION['room']."';";
 				$results1 = $conn->query($sql1);
 
 				if($results1->num_rows>0){
@@ -330,37 +361,55 @@ $(function() {
 		}
 		echo "</table>";
 	}
+	
 
+	
 
+	//TESTIT
+	date_default_timezone_set("GMT");
 
+	$day_today = date(l);
+	if($day_today == "Saturday" && $currentDebt > 0)
+	{
 
+		echo '<script type="text/javascript">'
+   			, 'nameit();'
+   			, '</script>'
+		;
+	}
 
 
 
 	//setjum hérna verkefni sem innskráður notandi á
 
 
-	$sql = "SELECT todo,do_date FROM todo WHERE user_resp ='" . $_SESSION['user_name']."';";
+	$sql = "SELECT todo,do_date FROM todo WHERE done_bool IS NULL AND user_resp ='" . $_SESSION['user_name']."' ;";
 	$results = $conn->query($sql);
 	
 
 	if($results->num_rows > 0)
 	{
-		echo 	"<table class='table table-striped' id='my_assignments'><caption><h2>Verkefnin mín</h2></caption><tr><th>Verkefni</th><th id='value'>Dagsetning</th></tr>";
+		echo 	"<table class='table table-striped' id='my_assignments'><caption><h2 id='modals'>Verkefnin mín</h2></caption><tr><th>Verkefni</th><th id='value'>Dagsetning</th></tr>";
 		while($row = $results->fetch_assoc())
 		{	
 
-			echo "<tr><td>". $row['todo'] ."</td><td>". $row['do_date']. "</td><td></td></tr>";
+			echo "<tr><td>". $row['todo'] ."</td><td>". $row['do_date']. "</td></tr>";
 			
 			
 			
 			
 		}
-		echo "</table>";
+		echo "</table></div>";
 	}
+	else echo "</table></div>";
 
 
+ require_once('graph_maker.php');
 
+		echo "<div class='col-md-6' id='graphit'>";
+		include_once('graph_payments.html');
+		include_once('graph_jobs.html');
+		echo "</div></div>";
 
 
 
@@ -381,7 +430,7 @@ $form = <<<EOT
 EOT;
 
 echo $form;
-echo '</div>';
+echo '</div></div>';
 // ef ýtt er á takkann hætta í room-i.
 
 if(isset($_POST['quit_room'])){
@@ -457,7 +506,13 @@ echo $form;
 			echo 'Þetta room er ekki til.';
 		}
 	}
+	?>
 
+		<div class="col-md-4" id="logout">
+
+	<a href="../index.php?logout">Logout</a>
+	</div>
+	<?php
 }
 else 
 {

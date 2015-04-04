@@ -1,0 +1,24 @@
+{
+    "cols": [
+        {
+            "label": "username",
+            "type": "string"
+        },
+        {
+            "label": "total",
+            "type": "number"
+        }
+    ],
+    "rows": [
+        {
+            "c": [
+                {
+                    "v": "hitest"
+                },
+                {
+                    "v": 70500
+                }
+            ]
+        }
+    ]
+}

@@ -45,9 +45,9 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	<div class="col-md-8">
 	<?php
 
-		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." <h2>" ;
+	
 
-		echo "<h2>Velkomin/n: ".ucfirst($_SESSION['user_name'])."&emsp;&emsp;&emsp;&emsp;&emsp; Herbergi: ".($_SESSION['room'])." </h2>" ;
+		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])."&emsp;&emsp;&emsp;&emsp;&emsp; Herbergi: ".($_SESSION['room'])." </h2>" ;
 
 	?>
 
@@ -369,10 +369,10 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 
 	
 
-	//færð "tilkynningu um 'reikning' ef þú skuldar pening á mánudögum"
+	//færð "tilkynningu um 'reikning' ef þú skuldar pening á mánudegi
 	date_default_timezone_set("GMT");
 
-	$day_today = date(l);
+	$day_today = date('l');
 	if($day_today == "Monday" && $currentDebt > 0)
 	{
 

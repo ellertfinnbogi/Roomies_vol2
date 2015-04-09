@@ -8,7 +8,7 @@ light-blue: #2fa2d9;
 
 body
 {
-	font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+  font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
    width: auto;
 }
 
@@ -65,12 +65,12 @@ th
    width: 100px;
 }
 
-.btn btn-default btn-sm:hover
+#temp
 {
-  color:red;
+  margin-right: 50px;
+ 
+
 }
-
-
 td,tr
 {  
   
@@ -82,7 +82,7 @@ td,tr
    word-wrap: break-word; 
 
 }
-.green
+#green
 {
   background-color:lightgreen;
 }
@@ -98,7 +98,7 @@ input
 }
 h1
 {
-	text-align: middle;
+  text-align: middle;
 
 }
 select option
@@ -107,9 +107,9 @@ select option
 }
 img
 {
-	height:250px;
-	width: 400px;
-	text-align: center;
+  height:250px;
+  width: 400px;
+  text-align: center;
 }
 #makejob:first-child
 {
@@ -148,7 +148,10 @@ img
  
    
 }
-
+#prump
+{
+  float: left;
+}
 #graph
 {
   float:right;
@@ -192,9 +195,9 @@ ul li
 }
 
 .wrap {
-	width: 483px;
-	text-align: center;
-	margin: 50px auto;
+  width: 483px;
+  text-align: center;
+  margin: 50px auto;
 }
 .container1
 {

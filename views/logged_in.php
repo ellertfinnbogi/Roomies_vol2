@@ -81,14 +81,22 @@ if(isset($_POST['quit_room'])){
 	</div>
 
 </div>
-
 <div class="row">
-	<div class="col-md-1" id="makejob">
-		<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#todo_job" data-whatever="skra_verkefni">Skrá verkefni</button>
-	</div>	
-	<div class="col-md-1" id="makejob">
-		<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#payment" data-whatever="skra_utjold">Skrá útgjöld</button>
+<div class="form-group">
+	<div class="col-md-5" id="temp">
+		<button type="button" class="btn btn-primary col-md-3"  data-toggle="modal" data-target="#todo_job" data-whatever="skra_verkefni">Skrá verkefni</button>
+
+		<button type="button" class="btn btn-primary col-md-3" data-toggle="modal" data-target="#payment" data-whatever="skra_utjold">Skrá útgjöld</button>
+	
+	
+		<button type="button" class="btn btn-primary col-md-3" data-toggle="modal" data-target=".assignments" data-whatever="skra_verkefni">Verkefnaskrá</button>
+
+		<button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target=".payments" data-whatever="skra_utjold">Útlagt</button>
+
 	</div>
+	</div>
+	</div>
+
 
 		<!-- Skrá verkefni -->
 		<div class="modal fade" id="todo_job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -186,10 +194,7 @@ if(isset($_POST['quit_room'])){
 
 			
 	<!-- Verkefnaskrá -->
-	<div class="col-md-1" id="assignments">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Verkefnaskrá</button>
-</div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade assignments" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
@@ -212,19 +217,14 @@ if(isset($_POST['quit_room'])){
 	{
 		while($row = $result->fetch_assoc())
 		{
-			
-			
 		
-			
-
-
 			 if($row['done_bool'] == 'X')
 			 {
 			 ?>
 			 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobnotdone">
 			 <?php
 			 echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
-			 	echo "<tr class='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td><input type='submit'  name='setjobnotdone' value='Endurvekja'/>";
+			 	echo "<tr id='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td><input type='submit'  name='setjobnotdone' value='Endurvekja'/>";
 			 }
 
 			 else
@@ -250,9 +250,6 @@ if(isset($_POST['quit_room'])){
 ?>
 
 		<!-- Greiðsluskrá -->
-	<div class="col-md-1" id="payments_table">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".payments">Útlagt</button>
-</div>
 <div class="modal fade payments" tabindex="-1" role="dialog" aria-labelledby="greidsluskra" aria-hidden="true">
   <div class="modal-dialog modal-sm">
   
@@ -343,7 +340,7 @@ if(isset($_POST['quit_room'])){
 
 	if($results->num_rows > 0)
 	{
-		echo "<div class='row'><div class='col-md-6'>";
+		echo "<div class='row'><div class='col-md-6' id='prump'>";
 		while($row = $results->fetch_assoc())
 		{	
 			// prentum ekki út okkar user name.
@@ -428,7 +425,7 @@ if(isset($_POST['quit_room'])){
 if($_SESSION['value'] != null)
 {
 
-		echo "<div class='col-md-6' id='graphit'>";
+		echo "<div class='col-md-6' id='graph'>";
 		require('graph_maker.php');
 		include_once('graph_payments.html');
 		include_once('graph_jobs.html');
@@ -436,7 +433,7 @@ if($_SESSION['value'] != null)
 }
 
 
-echo "</div";
+echo "</div>";
 
 
 }
@@ -534,6 +531,7 @@ echo $form;
 }
 else 
 {
+	
 	echo 'Þú hefur ekki aðgang að þessari síðu, þú þarft að skrá þig inn. Færi tilbaka eftir 2 sekúndur';
 	sleep(2);
 	 printf("<script>location.href='../index.php'</script>");

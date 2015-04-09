@@ -5,7 +5,7 @@ require_once("../classes/user_functions.php");
 
 $sess = new Login();
 $conn = $sess->getDbConnection();
- require_once('graph_maker.php');
+// require_once('graph_maker.php');
 
 $null_check = "SELECT room from users where user_name = '". $_SESSION['user_name'] . "';";
 $null_check_result = $conn->query($null_check);
@@ -349,7 +349,6 @@ if(isset($_POST['quit_room'])){
 			// prentum ekki út okkar user name.
 			if($_SESSION['user_name'] == $row['user_name']){
 				continue;
-
 			}
 			else{
 				echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda<h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
@@ -430,6 +429,7 @@ if($_SESSION['value'] != null)
 {
 
 		echo "<div class='col-md-6' id='graphit'>";
+		require('graph_maker.php');
 		include_once('graph_payments.html');
 		include_once('graph_jobs.html');
 		echo "</div>";
@@ -534,7 +534,6 @@ echo $form;
 }
 else 
 {
-	http_response_code(404);
 	echo 'Þú hefur ekki aðgang að þessari síðu, þú þarft að skrá þig inn. Færi tilbaka eftir 2 sekúndur';
 	sleep(2);
 	 printf("<script>location.href='../index.php'</script>");

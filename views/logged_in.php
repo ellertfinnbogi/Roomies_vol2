@@ -2,20 +2,17 @@
 require_once("../classes/Login.php");
 require_once("../config/db.php");
 require_once("../classes/user_functions.php");
+
 $sess = new Login();
 $conn = $sess->getDbConnection();
-
+ require_once('graph_maker.php');
 
 $null_check = "SELECT room from users where user_name = '". $_SESSION['user_name'] . "';";
 $null_check_result = $conn->query($null_check);
 $res = $null_check_result->fetch_assoc();
 $_SESSION['room'] = $res['room'];
 echo "<meta charset='utf-8' >";
-//echo "<link rel='stylesheet' href='../css/look.css'>";
-if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
-{
-	
-	?>
+?>
 	<script src="../js/display_functions.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
@@ -25,6 +22,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 <link rel="stylesheet" href="../css/look.css">
 <!-- Finally the bootbar CSS and JS -->
 <script src="../js/bootbar.js"></script>
+     <link rel='shortcut icon' type='image/x-icon' href='../img/roomies.ico' />
 
 <!-- ***Nota seinna fyrir notification**** -->
 
@@ -35,7 +33,15 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 }; 
 </script> 
 
+<?php
 
+
+
+
+
+if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
+{
+	?>
 </head>
 <body>
 <div class="alert-messages">
@@ -44,17 +50,34 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 <div class="row" id="header">
 	<div class="col-md-8">
 	<?php
+		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." - Herbergi: ".($_SESSION['room'])." </h2>" ;
+		$form = <<<EOT
+<form action="" method ="POST">
+	<button type="submit" class="btn btn-danger"  data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
+</form>
 
+EOT;
+
+echo $form;
+// ef ýtt er á takkann hætta í room-i.
+
+if(isset($_POST['quit_room'])){
+	$sql = "UPDATE users  SET room = NULL WHERE user_name = '" . $_SESSION['user_name'] ."'; ";                
+	$result= $conn->query($sql);
+	// ef skipunin virkaði þá refreshum við síðuna.
+	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
 	
+	if($result){
+			printf("<script>location.href='logged_in.php'</script>");
+	}
 
-		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])."&emsp;&emsp;&emsp;&emsp;&emsp; Herbergi: ".($_SESSION['room'])." </h2>" ;
+}
 
 	?>
-
 	</div>
 	<div class="col-md-4" id="logout">
-
-	<a href="../index.php?logout">Logout</a>
+	<button class="btn btn-default btn-sm" onclick="location.href='../index.php?logout'">
+     Útskrá</button>
 	</div>
 
 </div>
@@ -162,13 +185,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 			    </div>
 
 			
-
-
-	      
-
-
-
-	<!-- Large modal -->
+	<!-- Verkefnaskrá -->
 	<div class="col-md-1" id="assignments">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Verkefnaskrá</button>
 </div>
@@ -182,7 +199,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 
 
 
-<!-- Verkefnaskrá -->
+
 	<?php
 
 
@@ -252,8 +269,10 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 
 	if($result2->num_rows > 0)
 	{
+
 		while($row = $result2->fetch_assoc())
 		{
+			$_SESSION['value'] = $row['value'];
 			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['value'] . "</td><td>". $row['about_pay']. "</td></tr>";
 			
 		}
@@ -407,51 +426,50 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 	}
 	else echo "</table></div>";
 
-
- require_once('graph_maker.php');
+if($_SESSION['value'] != null)
+{
 
 		echo "<div class='col-md-6' id='graphit'>";
 		include_once('graph_payments.html');
 		include_once('graph_jobs.html');
-		echo "</div></div>";
-
-
-
-
-
-
-
-// hér búum við til takka sem getur skráð okkur úr room-inu.
-$form = <<<EOT
-<br />
-<div class="col-md-1" id="quitroom">
-
-<form action="" method ="POST">
-	<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
-<br />
-</form>
-</div>
-EOT;
-
-echo $form;
-echo '</div></div>';
-// ef ýtt er á takkann hætta í room-i.
-
-if(isset($_POST['quit_room'])){
-	$sql = "UPDATE users  SET room = NULL WHERE user_name = '" . $_SESSION['user_name'] ."'; ";                
-	$result= $conn->query($sql);
-	// ef skipunin virkaði þá refreshum við síðuna.
-	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
-	
-	if($result){
-			printf("<script>location.href='logged_in.php'</script>");
-	}
-
+		echo "</div>";
 }
+
+
+echo "</div";
+
 
 }
 else if($_SESSION['user_login_status'] == 1 && $res['room'] == null)
 {
+?>
+	<div class="container">
+<div class="row" id="header">
+	<div class="col-md-8">
+	<?php
+		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." - Herbergi: ".($_SESSION['room'])." </h2>" ;
+		$form = <<<EOT
+<form action="" method ="POST">
+	<button type="submit" class="btn btn-danger"  data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
+</form>
+
+EOT;
+
+
+
+	?>
+	</div>
+	<div class="col-md-4" id="logout">
+	<button class="btn btn-default btn-sm" onclick="location.href='../index.php?logout'">
+     Útskrá</button>
+	</div>
+
+</div>
+
+
+
+
+<?php
 	
 // formið join og create room.
 $form = <<<EOT
@@ -465,6 +483,8 @@ $form = <<<EOT
 EOT;
 
 echo $form;
+
+
 	// ef klikkað er að create room þá generateast 12 stafa random room number.
 	if(isset($_POST['create_room'])){
 		$random_room = substr(md5(rand()), 0, 12);
@@ -510,18 +530,15 @@ echo $form;
 			echo 'Þetta room er ekki til.';
 		}
 	}
-	?>
 
-		<div class="col-md-4" id="logout">
-
-	<a href="../index.php?logout">Logout</a>
-	</div>
-	<?php
 }
 else 
 {
-	die('Þú hefur ekki aðgang að þessari síðu');
-	printf("<script>location.href='../index.php'</script>");
+	http_response_code(404);
+	echo 'Þú hefur ekki aðgang að þessari síðu, þú þarft að skrá þig inn. Færi tilbaka eftir 2 sekúndur';
+	sleep(2);
+	 printf("<script>location.href='../index.php'</script>");
+	 die();
 }
 ?>
 

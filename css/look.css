@@ -65,6 +65,10 @@ th
    width: 100px;
 }
 
+.btn btn-default btn-sm:hover
+{
+  color:red;
+}
 
 
 td,tr

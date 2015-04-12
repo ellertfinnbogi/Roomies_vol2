@@ -71,6 +71,10 @@ echo $form;
 if(isset($_POST['quit_room'])){
 	$sql = "UPDATE users  SET room = NULL WHERE user_name = '" . $_SESSION['user_name'] ."'; ";                
 	$result= $conn->query($sql);
+	$sql2 = "DELETE FROM todo WHERE user_resp = '" . $_SESSION['user_name'] ."'; ";
+	$result2= $conn->query($sql2);
+	$sql3 = "DELETE FROM payment WHERE user_name = '" . $_SESSION['user_name'] ."'; ";
+	$result3= $conn->query($sql3);
 	// ef skipunin virkaði þá refreshum við síðuna.
 	//hér ætla ég að reyna bæta við pop-up glugga til að athuga hvort þú sért viss um að vilja hætta í room-i....
 	

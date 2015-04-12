@@ -5,12 +5,13 @@ require_once("../classes/user_functions.php");
 
 $sess = new Login();
 $conn = $sess->getDbConnection();
-// require_once('graph_maker.php');
 
-$null_check = "SELECT room from users where user_name = '". $_SESSION['user_name'] . "';";
+
+$null_check = "SELECT * from users where user_name = '". $_SESSION['user_name'] . "';";
 $null_check_result = $conn->query($null_check);
 $res = $null_check_result->fetch_assoc();
 $_SESSION['room'] = $res['room'];
+$_SESSION['room_name'] = $res['room_name'];
 echo "<meta charset='utf-8' >";
 ?>
 	<script src="../js/display_functions.js"></script>
@@ -50,7 +51,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 <div class="row" id="header">
 	<div class="col-md-8">
 	<?php
-		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." - Herbergi: ".($_SESSION['room'])." </h2>" ;
+		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." - Herbergisnafn: ".($_SESSION['room_name'])." </h2>" ;
 		$form = <<<EOT
 <form action="" method ="POST">
 	<button type="submit" class="btn btn-danger"  data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
@@ -59,6 +60,12 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 EOT;
 
 echo $form;
+
+
+
+
+
+
 // ef ýtt er á takkann hætta í room-i.
 
 if(isset($_POST['quit_room'])){
@@ -74,11 +81,16 @@ if(isset($_POST['quit_room'])){
 }
 
 	?>
+	<!-- Takkar til að útskrá notenda og breyta upplýsingum um herbergi -->
 	</div>
 	<div class="col-md-4" id="logout">
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#change_info" data-whatever="skra_upplysingar">
+
+     Breyta upplýsingum</button>
+
 	<button class="btn btn-default btn-sm" onclick="location.href='../index.php?logout'">
      Útskrá</button>
-	</div>
+     </div>
 
 </div>
 <div class="row">
@@ -97,7 +109,43 @@ if(isset($_POST['quit_room'])){
 	</div>
 	</div>
 
+			<div class="modal fade" id="change_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
+		 <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h2 id="modals" class="modal-title" id="exampleModalLabel">Hér getur þú breytt nafni og leigu</h2>
+			      </div>
+			      <div class="modal-body">
+			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savepayment">
+
+
+			       		<div class="form-group">
+			            <?php
+			            	echo '<h4>Lykill fyrir herbergi: </h4><h4 id="orange">'. $_SESSION['room'].'</h4>';
+			            	
+
+			            ?>
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">Upphæð leigu</label>
+			            <input type="number" class="form-control" name="payment_amount" id="recipient-name">
+			          </div>
+	             <div class="form-group">
+	             		<label for="date" class="control-label">Herbergisnafn</label>
+			            <input type="text" class="form-control" name="payment" id="recipient-name">
+			          </div>
+			       
+			      <div class="modal-footer">
+			        
+			        <input type="submit"  name="change_info" value="Breyta" />
+			      </div>
+			      </form>
+			    </div>
+			    </div>
+			    </div>
+			    </div>
 		<!-- Skrá verkefni -->
 		<div class="modal fade" id="todo_job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -217,27 +265,49 @@ if(isset($_POST['quit_room'])){
 	{
 		while($row = $result->fetch_assoc())
 		{
-		
-			 if($row['done_bool'] == 'X')
-			 {
-			 ?>
-			 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobnotdone">
-			 <?php
-			 echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
-			 	echo "<tr id='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td><input type='submit'  name='setjobnotdone' value='Endurvekja'/>";
-			 }
+			if($_SESSION['user_name'] == $row['user_resp'])
+			{
+				 if($row['done_bool'] == 'X')
+				 {
+				 ?>
+				 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobnotdone">
+				 <?php
+				 echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+				 	echo "<tr id='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td><input type='submit'  name='setjobnotdone' value='Endurvekja'/>";
+				 }
 
-			 else
-			 {
-			 ?>
-			 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobasdone">
-			 <?php
-			 	echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
-			 	echo "<tr><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']; 
-				echo "</td><td><input type='submit'  name='setjobasdone' value='Skrá verk klárað'/>";
-			 }
+				 else
+				 {
+				 ?>
+				 <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="setjobasdone">
+				 <?php
+				 	echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+				 	echo "<tr><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']; 
+					echo "</td><td><input type='submit'  name='setjobasdone' value='Skrá verk klárað'/>";
+				 }
+				 echo "</td></tr></form>";
+			}
+			else
+			{
+				if($row['done_bool'] == 'X')
+				 {
+				 echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+				 	echo "<tr id='green'><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']. "</td><td>";
+				 }
 
-			echo "</td></tr></form>";
+				 else
+				 {
+				 ?>
+				 
+				 <?php
+				 	echo "<input type='hidden' name='todo_id' value='".$row['id']."'>";
+				 	echo "<tr><td>". $row['user_name'] ."</td><td>". $row['todo'] . "</td><td>". $row['user_resp']. "</td><td>". $row['do_date']; 
+					echo "</td><td>";
+				 }
+			} 
+
+
+			
 		
 		}
 
@@ -299,8 +369,6 @@ if(isset($_POST['quit_room'])){
 
         	$user_function->jobsetnotdone();
         }
-
-
 
 
 
@@ -474,33 +542,67 @@ $form = <<<EOT
 Þú ert ekki skráð/ur í neitt Room. Þú getur tengst Room-i eða búið til nýtt Room. <br />
 <input type = "text" name="room" />&emsp;<input type="submit" value="tengjast room numeri" name="join_room" /> <br />
 
-<br /><input type="submit" value="Búa til nýtt room" name="create_room" />
+<button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#createroom" data-whatever="skra_utjold">Create room</button>
 
-</form>
 EOT;
+?>
+		<div class="modal fade" id="createroom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+		 <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h2 id="modals" class="modal-title" id="exampleModalLabel">Settu inn viðeigandi upplýsingar</h2>
+			      </div>
+			      <div class="modal-body">
+			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="create_room">
+
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">Nafn á herbergi</label>
+			            <input type="text" class="form-control" name="roomname" id="recipient-name">
+			          </div>
+	             <div class="form-group">
+	             		<label for="rent" class="control-label">Leiga á mánuði</label>
+			            <input type="number" class="form-control" name="rent" id="recipient-name">
+			          </div>
+			       
+			      <div class="modal-footer">
+			        
+			        <input type="submit"  name="create_room" value="Skrá verk" />
+			      </div>
+			      </form>
+			    </div>
+			    </div>
+			    </div>
+			    </div>
+
+			    <?php
 
 echo $form;
+	$user_functions = new UserFunctions();
+	if(isset($_POST["create_room"])) {
 
-
+       $user_functions->createroom();
+    }
 	// ef klikkað er að create room þá generateast 12 stafa random room number.
-	if(isset($_POST['create_room'])){
-		$random_room = substr(md5(rand()), 0, 12);
-		$sql = "UPDATE users  SET room = '$random_room' WHERE user_name = '" . $_SESSION['user_name'] ."'; ";
+	// if(isset($_POST['create_room'])){
+	// 	$random_room = substr(md5(rand()), 0, 12);
+	// 	$sql = "UPDATE users  SET room = '$random_room' WHERE user_name = '" . $_SESSION['user_name'] ."'; ";
                     
-		$result= $conn->query($sql);
-		// ef skipunin virkaði þá refreshum við síðuna.
-		if ($result) {
-					printf("<script>location.href='logged_in.php'</script>");
+	// 	$result= $conn->query($sql);
+	// 	// ef skipunin virkaði þá refreshum við síðuna.
+	// 	if ($result) {
+	// 				printf("<script>location.href='logged_in.php'</script>");
 
-		}
+	// 	}
 
-		//pretun út error ef það eru einhverjir.
-		if (!$result) {
-    		$message  = 'Invalid query: ' . mysql_error() . "\n";
-    		$message .= 'Whole query: ' . $query;
-    		die($message);
-		}
-	}
+	// 	//pretun út error ef það eru einhverjir.
+	// 	if (!$result) {
+ //    		$message  = 'Invalid query: ' . mysql_error() . "\n";
+ //    		$message .= 'Whole query: ' . $query;
+ //    		die($message);
+	// 	}
+	// }
 	else if(isset($_POST['join_room'])){
 		$room_name = $conn->real_escape_string(strip_tags($_POST['room'], ENT_QUOTES));
 

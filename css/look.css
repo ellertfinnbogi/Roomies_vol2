@@ -159,7 +159,7 @@ img
 #logout
 {
   
-   padding:25px 200px 0 0 ;
+   padding:25px 0 0 0 ;
 
 }
 #assignmtd.red{
@@ -192,6 +192,16 @@ ul li
 #hide
 {
    display: none;
+}
+h4
+{
+  display:inline;
+}
+#orange
+{
+ 
+  color: #D9534F;
+ 
 }
 
 .wrap {

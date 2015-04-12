@@ -145,7 +145,7 @@ class UserFunctions
 
     }
 
-        public function jobsetnotdone()
+    public function jobsetnotdone()
     {
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
@@ -175,6 +175,42 @@ class UserFunctions
                 }
             }
 
+    }
+    public function createroom()
+    {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+        // setjum stafasett sem utf8
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+
+        // athugum hvort database tengingin se ekki í lagi,
+       if (!$this->db_connection->connect_errno) {
+
+            $roomname= $this->db_connection->real_escape_string(strip_tags($_POST['roomname'], ENT_QUOTES));
+            $roomrent= $this->db_connection->real_escape_string(strip_tags($_POST['rent'], ENT_QUOTES));
+            $random_room = substr(md5(rand()), 0, 12);
+            $user = $_SESSION['user_name'];
+                // skrifum nýtt verkefni í gagangrunn
+               // $sql ="UPDATE users SET done_bool = null WHERE id = $todo_id";
+              //  $sql "INSERT INTO users (room_name, room_rent,room) WHERE $_SESSION['user_name'] = user_name
+                     // VALUES('".$roomname."','".$roomrent."','".$random_room."');";
+                       // echo $sql;
+                $sql ="UPDATE users SET room_name = '$roomname',room_rent = '$roomrent',room = '$random_room' WHERE user_name = '$user'";
+               
+                $query_new_job_insert = $this->db_connection->query($sql);
+               
+
+                // verkefni hefur verið bætt við
+                if ($query_new_job_insert) {
+                        printf("<script>location.href='logged_in.php'</script>");
+                } else {
+                    $this->errors[] = "FAILED";
+                   
+                }
+            }
     }
 
 

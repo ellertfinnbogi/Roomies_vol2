@@ -14,6 +14,8 @@ $_SESSION['room'] = $res['room'];
 $_SESSION['room_name'] = $res['room_name'];
 echo "<meta charset='utf-8' >";
 ?>
+    <title>Roomies
+      </title>
 	<script src="../js/display_functions.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->

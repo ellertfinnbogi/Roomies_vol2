@@ -1,0 +1,17 @@
+{
+    "cols": [
+        {
+            "label": "username",
+            "type": "string"
+        },
+        {
+            "label": "total",
+            "type": "number"
+        },
+        {
+            "label": "done",
+            "type": "number"
+        }
+    ],
+    "rows": []
+}

@@ -1,0 +1,6 @@
+
+<?php
+    // must
+phpinfo();
+
+?>

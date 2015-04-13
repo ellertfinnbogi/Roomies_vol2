@@ -1,0 +1,308 @@
+
+
+/*Litir:
+navy: #001f3f
+light-blue: #2fa2d9;
+*/
+
+
+body
+{
+  font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+   width: auto;
+}
+
+h2 #change
+{
+   padding-left: 60px;
+   color:#2fa2d9;
+   text-decoration: italic;
+}
+
+.member_login
+{
+   float: top;
+   background-color: #001f3f;
+   padding:4px 1px 4px 1px;
+   inline-box-align: initial;
+
+}
+
+
+th
+{
+   color:#2fa2d9;
+   font-size: 18pt;
+   /*padding-right:15px;*/
+   border-bottom: 1pt solid;
+   
+   
+}
+.table-striped td
+{
+  font-size:12pt;
+  text-align: left;
+
+}
+.table-striped th
+{
+  
+  background-color: white;
+  font-size:16pt;
+}
+#my_assignments tr
+{
+  font-size: 10pt;
+
+  color:red;
+  max-width: 100px;
+   word-wrap: break-word; 
+      margin-right: 15px;
+   padding-right: 15px;
+}
+#todo
+{
+   width: 100px;
+}
+
+#temp
+{
+  margin-right: 50px;
+ 
+
+}
+td,tr
+{  
+  
+/*   margin-right: 15px;
+   padding-right: 15px;*/
+   color:black;
+   font-size:14pt;
+   /*max-width:200px;*/
+   word-wrap: break-word; 
+
+}
+#green
+{
+  background-color:lightgreen;
+}
+
+label
+{
+   color: #2fa2d9;
+}
+
+input
+{
+   color: #2fa2d9;
+}
+h1
+{
+  text-align: middle;
+
+}
+select option
+{
+   color:#2fa2d9;
+}
+img
+{
+  height:250px;
+  width: 400px;
+  text-align: center;
+}
+#makejob:first-child
+{
+
+   float:left;
+   margin: 0 14px 0 0;
+
+}
+#makejob
+{
+   margin:0 8px 0 0;
+}
+#assignments
+{
+   margin:0 17px 0 0;
+}
+
+#payments_table
+{
+  margin:0 200px 0 0;
+  float:left;
+}
+
+#quitroom
+{
+   float:right;
+ 
+}
+.alert-messages {
+   /* position: fixed;*/
+   display:none;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 10000000;
+ 
+   
+}
+#prump
+{
+  float: left;
+}
+#graph
+{
+  float:right;
+}
+#logout
+{
+  
+   padding:25px 0 0 0 ;
+
+}
+#assignmtd.red{
+  background:#f698aa;
+}
+#assignm td.green{
+  background:#a5f6a8;
+}
+#assignm input[type=button]{
+  border:1px solid #333;
+  background:#dcdcdc;
+}
+
+#header
+{
+
+ 
+   border-bottom: 1px dashed #046ca3;
+   box-shadow: 0 inset 0 1px 0 0 #046ca3, 0 1px 0 0 #046ca3, 0 -1px 0 0 #046ca3;
+   margin-bottom: 1px;
+   margin-bottom: 8px;
+
+}
+
+ul li
+{
+   list-style-type: none;
+}
+
+#hide
+{
+   display: none;
+}
+h4
+{
+  display:inline;
+}
+#orange
+{
+ 
+  color: #D9534F;
+ 
+}
+
+.wrap {
+  width: 483px;
+  text-align: center;
+  margin: 50px auto;
+}
+.container1
+{
+ margin-top:200px;
+
+}
+
+
+.modal-sm
+{
+   width: 400px;
+   min-height:400px;
+   padding-top: 20px;
+   margin-top: 20px;
+}
+#exampleModalLabel
+{
+   font-style: bold;
+}
+
+#menubar {
+    width:100%;
+    background-color:#444;
+    color: #fff;
+    padding: 10px;
+}
+
+#button {
+    cursor:pointer;
+}
+
+#menu, #right {
+    display:inline;
+}
+
+#menu li a {
+    padding: 10px;
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+#right {
+    width:100%;
+    background-color: #fff;
+    z-index: 5;
+    position: fixed;
+    left: 0px;
+    height: 100%;
+    -webkit-box-shadow:  -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+        moz-box-shadow:  -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+          o-box-shadow:  -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow:  -5px 0px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+#right p {
+    padding: 10px;
+}
+
+#menu {
+    float:left;
+    width: 350px;
+    height: 100%;
+}
+
+#menu li {
+    background-color:#444;
+    border-bottom: 1px solid #888;
+}
+
+.employees {
+   width: 880px;
+}
+
+.employee {
+   width: 200px;
+   text-align: left;
+   margin: 0 10px 40px;
+   float: left;
+}
+
+.employee p {
+   line-height: 5px;
+   font-size: 14px;
+}
+
+.employee .title {
+   font-style: italic;
+}
+
+.employee .name {
+   font-size: 16px;
+   font-weight: bold;
+}
+
+.employee img {
+   width: 200px;
+}

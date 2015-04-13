@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="is">
+  <head>
+     <meta charset="utf-8" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" href="css/look.css">
+     <link rel='shortcut icon' type='image/x-icon' href='img/roomies.ico' />
+
+  
+      <title>Roomies
+      </title>
+     
+     </head>
+
+     <body>
+     <div class="member_login">
+
+         <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="loginform">
+            <label for="login_input_username">Notendanafn: </label>
+             <input id="login_input_username" type="text" name="user_name" required>
+             <label for="login_input_password">Lykilorð: </label>
+             <input id="login_input_password" type="password" name="user_password" required />
+             <input type="submit"  name="login" value="Skrá inn" />
+         </form>
+
+     </div>
+
+
+            <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Nýskráning</h4>
+                  </div>
+                  <div class="modal-body">
+                         <meta charset="utf-8" >
+                             <link rel="stylesheet" href="css/look.css">
+                             <link rel='shortcut icon' type='image/x-icon' href='img/roomies.ico' />
+                             <form method="post" action="register.php" name="registerform">
+
+                            
+                                <label for="login_input_username">Notendanafn (aðeins stafir og tölusaftir, 2 til 64 slög)</label>
+                                <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
+                                <br />
+
+                                
+                                <label for="login_input_email">Netfang notenda</label>
+                                <input id="login_input_email" class="login_input" type="email" name="user_email" required />
+                                <br />
+                                <label for="login_input_password_new">Lykilorð (lágmark 6 stafir)</label>
+                                <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
+                                <br />
+                                <label for="login_input_password_repeat">Endurtaka lykilorð</label>
+                                <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
+                                <br />
+                                <input type="submit"  name="register" value="Búa til aðgang" />
+
+                            </form>
+
+
+                                <a href="index.php">Tilbaka á innskráningarsíðu</a>
+                </div>
+               </div>
+               </div>
+               </div>
+
+      <div class="wrap">
+
+     <h1>Velkominn á heimasíðuna Roomies</h1>
+   <!--   <a href="register.php"><h3>Opna nýjan aðgang</h3></a> -->
+     <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#register" data-whatever="skra_utjold">Opna nýjan aðgang</button>
+     
+
+     <img src="img/roomies.jpg">
+
+     </div>
+
+        <div class="wrap employees">
+            <h3>~Teymið~</h3>
+            <div class="employee">
+              <!--  <img src="david.jpg" allt=""> -->
+                <div class="info">
+                    <p class="name">Atli Sigurðsson</p>
+                    <p class="title">Co-Founder</p>
+                    <p>S: 777-7777 </p>
+                    <p><a href="mailto:ats15@hi.is">ats15@hi.is</a></p>
+                </div>
+            </div>
+            <div class="employee">
+               <!--  <img src="david.jpg" alt=""> -->
+                <div class="info">
+                    <p class="name">Ellert Finnbogi Eiríksson</p>
+                    <p class="title">Co-Founder</p>
+                    <p>S: 777-7777</p>
+                    <p><a href="mailto:efe1@hi.is">efe1@hi.is</a></p>
+                </div>
+            </div>
+                <div class="employee">
+                 <!--  <img src="david.jpg" alt=""> -->
+                <div class="info">
+                    <p class="name">Kristján Emil Torfason</p>
+                    <p class="title">Co-Founder</p>
+                    <p>S: 777-7777</p>
+                    <p><a href="mailto:ket1@hi.is">ket1@hi.is</a></p>
+                </div>
+            </div>
+            <div class="employee">
+                <!--  <img src="david.jpg" alt=""> -->
+                <div class="info">
+                    <p class="name">Trausti Már Svavarsson<p>
+                    <p class="title">Co-Founder</p>
+                    <p>S: 777-7777</p>
+                    <p><a href="mailto:tms3@hi.is">tms3@hi.is</a></p>
+                </div>
+            </div>
+        </div>
+
+      </body>
+</html>

@@ -26,12 +26,6 @@ class UserFunctions
 
 
 
-           	//GOTT TIL AÐ AHTUGA HVORT TENGIN VIÐ DB SÉ Í LAGI
-            /*	if ($this->db_connection->ping()) {
-    				printf ("Our connection is ok!\n");
-				} else {
-    				printf ("Error: %s\n", $db_connection->error);
-					}*/
 
                 // fjarlægum allt sem getur verið html og js kóði
                 $todo = $this->db_connection->real_escape_string(strip_tags($_POST['todo_list'], ENT_QUOTES));
@@ -212,6 +206,54 @@ class UserFunctions
                 }
             }
     }
+
+    public function updateroominfo()
+    {
+        $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+        // setjum stafasett sem utf8
+        if (!$this->db_connection->set_charset("utf8")) {
+            $this->errors[] = $this->db_connection->error;
+        }
+
+        // athugum hvort database tengingin se ekki í lagi,
+       if (!$this->db_connection->connect_errno) {
+
+            $roomname= $this->db_connection->real_escape_string(strip_tags($_POST['update_room_name'], ENT_QUOTES));
+            $roomrent= $this->db_connection->real_escape_string(strip_tags($_POST['update_rent'], ENT_QUOTES));
+            $random_room = substr(md5(rand()), 0, 12);
+            $user = $_SESSION['user_name'];
+        
+            if($roomname == '' && $roomrent != '')
+            {
+                $sql ="UPDATE users SET room_rent = '$roomrent' WHERE user_name = '$user'";
+            }
+            else if($roomname != '' && $roomrent == '')
+            {
+                $sql ="UPDATE users SET room_name = '$roomname' WHERE user_name = '$user'";
+            }   
+            else if($roomname != '' && $roomrent != '')
+            {
+                $sql ="UPDATE users SET room_name = '$roomname', room_name = '$roomname' WHERE user_name = '$user'"; 
+            }
+            
+           
+               
+                $query_new_job_insert = $this->db_connection->query($sql);
+               
+
+                // verkefni hefur verið bætt við
+                if ($query_new_job_insert) {
+                        printf("<script>location.href='logged_in.php'</script>");
+                } else {
+                    $this->errors[] = "FAILED";
+                   
+                }
+            }
+
+    }
+    
 
 
 

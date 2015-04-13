@@ -13,5 +13,19 @@
             "type": "number"
         }
     ],
-    "rows": []
+    "rows": [
+        {
+            "c": [
+                {
+                    "v": "ellertfinnbogi"
+                },
+                {
+                    "v": 4
+                },
+                {
+                    "v": 1
+                }
+            ]
+        }
+    ]
 }

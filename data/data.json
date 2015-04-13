@@ -9,5 +9,16 @@
             "type": "number"
         }
     ],
-    "rows": []
+    "rows": [
+        {
+            "c": [
+                {
+                    "v": "ellertfinnbogi"
+                },
+                {
+                    "v": 1000
+                }
+            ]
+        }
+    ]
 }

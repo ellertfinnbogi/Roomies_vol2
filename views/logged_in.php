@@ -54,7 +54,7 @@ if($_SESSION['user_login_status'] == 1 && $res['room'] != null)
 		echo "<h2 id='change'>Velkomin/n: ".ucfirst($_SESSION['user_name'])." - Herbergisnafn: ".($_SESSION['room_name'])." </h2>" ;
 		$form = <<<EOT
 <form action="" method ="POST">
-	<button type="submit" class="btn btn-danger"  data-toggle="modal" data-target="#todo_job" name="quit_room" data-whatever="skra_verkefni">Skrá úr herbergi</button>
+	<button type="submit" class="btn btn-danger" name="quit_room">Skrá úr herbergi</button>
 </form>
 
 EOT;
@@ -122,7 +122,7 @@ if(isset($_POST['quit_room'])){
 			        <h2 id="modals" class="modal-title" id="exampleModalLabel">Hér getur þú breytt nafni og leigu</h2>
 			      </div>
 			      <div class="modal-body">
-			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="savepayment">
+			        <form method="post" action="<?php $_SERVER['SCRIPT_NAME']?>" name="change_info">
 
 
 			       		<div class="form-group">
@@ -134,11 +134,11 @@ if(isset($_POST['quit_room'])){
 			          </div>
 			          <div class="form-group">
 			            <label for="recipient-name" class="control-label">Upphæð leigu</label>
-			            <input type="number" class="form-control" name="payment_amount" id="recipient-name">
+			            <input type="number" class="form-control" name="update_rent" id="recipient-name">
 			          </div>
 	             <div class="form-group">
 	             		<label for="date" class="control-label">Herbergisnafn</label>
-			            <input type="text" class="form-control" name="payment" id="recipient-name">
+			            <input type="text" class="form-control" name="update_room_name" id="recipient-name">
 			          </div>
 			       
 			      <div class="modal-footer">
@@ -353,7 +353,7 @@ if(isset($_POST['quit_room'])){
 	else{echo "</table></div></div></div></div>";}
 
 
-		//sér um að skrá í gagnagrunn.
+		//USER functions
 		$user_function = new UserFunctions();
 		
         if(isset($_POST["savejob"])) {
@@ -372,6 +372,10 @@ if(isset($_POST['quit_room'])){
         if(isset($_POST["setjobnotdone"])) {
 
         	$user_function->jobsetnotdone();
+        }
+         if(isset($_POST["change_info"])) {
+
+        	$user_function->updateroominfo();
         }
 
 
@@ -542,11 +546,14 @@ EOT;
 	
 // formið join og create room.
 $form = <<<EOT
-<form action="" method ="POST">
-Þú ert ekki skráð/ur í neitt Room. Þú getur tengst Room-i eða búið til nýtt Room. <br />
-<input type = "text" name="room" />&emsp;<input type="submit" value="tengjast room numeri" name="join_room" /> <br />
 
-<button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#createroom" data-whatever="skra_utjold">Create room</button>
+<form action="" class="form-inline" method ="POST">
+<div class="form-group">
+Þú ert ekki skráð/ur í neitt Room. Þú getur tengst Room-i eða búið til nýtt Room. <br />
+<button type="button" class="btn btn-primary col-md-3" data-toggle="modal" data-target="#createroom" data-whatever="skra_utjold">Búa til herbergi</button>&emsp;
+<input type = "text" class="form-control" name="room" placeholder="herbergislykill" />&emsp;<button type="submit" class="btn btn-primary col-md-4" value="tengjast room numeri" name="join_room">Tengjast herbergi</button>&emsp;
+</div>
+
 
 EOT;
 ?>
@@ -588,25 +595,7 @@ echo $form;
 
        $user_functions->createroom();
     }
-	// ef klikkað er að create room þá generateast 12 stafa random room number.
-	// if(isset($_POST['create_room'])){
-	// 	$random_room = substr(md5(rand()), 0, 12);
-	// 	$sql = "UPDATE users  SET room = '$random_room' WHERE user_name = '" . $_SESSION['user_name'] ."'; ";
-                    
-	// 	$result= $conn->query($sql);
-	// 	// ef skipunin virkaði þá refreshum við síðuna.
-	// 	if ($result) {
-	// 				printf("<script>location.href='logged_in.php'</script>");
 
-	// 	}
-
-	// 	//pretun út error ef það eru einhverjir.
-	// 	if (!$result) {
- //    		$message  = 'Invalid query: ' . mysql_error() . "\n";
- //    		$message .= 'Whole query: ' . $query;
- //    		die($message);
-	// 	}
-	// }
 	else if(isset($_POST['join_room'])){
 		$room_name = $conn->real_escape_string(strip_tags($_POST['room'], ENT_QUOTES));
 

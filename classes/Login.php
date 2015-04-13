@@ -67,13 +67,15 @@ class Login
                         $_SESSION['user_login_status'] = 1;
                     
                     } else {
-                        $this->errors[] = "Wrong password. Try again.";
+                        echo "<p class='bg-danger'>Notendanafn eða lykilorð er rangt, reyndu aftur!</p>";
+                        
                     }
                 } else {
-                    $this->errors[] = "This user does not exist.";
+                    echo "<p class='bg-danger'>Notendanafn eða lykilorð er rangt, reyndu aftur!</p>";
+                    
                 }
             } else {
-                $this->errors[] = "Database connection problem.";
+                echo "Database connection problem.";
             }
         }
     

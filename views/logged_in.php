@@ -178,7 +178,6 @@ EOT;
 
 						$temp1= $_SESSION['user_name'];
 						$temp = $_SESSION['room'];
-						echo $next_month;
 
 						$sql ="SELECT user_name,SUM(value) FROM payment  WHERE room='$temp' ANd c_date > '2015/$prev_month/01' AND c_date < '2015/$month_today/01' group by user_name";
 						$results= $conn->query($sql);

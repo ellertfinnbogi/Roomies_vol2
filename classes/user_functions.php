@@ -89,8 +89,8 @@ class UserFunctions
 
 
                 // skrifum nýtt verkefni í gagangrunn
-                $sql = "INSERT INTO payment (room,user_name,value,about_pay,reg_date)
-                        VALUES('".$_SESSION['room']."','".$_SESSION['user_name']."','".$payment_amount."','".$payment."',DATE_FORMAT(NOW(),'%d-%m-%Y'));"; 
+                $sql = "INSERT INTO payment (room,user_name,value,about_pay,reg_date,c_date)
+                        VALUES('".$_SESSION['room']."','".$_SESSION['user_name']."','".$payment_amount."','".$payment."',DATE_FORMAT(NOW(),'%d-%m-%Y'),CURDATE());"; 
                       
                         
                 $query_new_job_insert = $this->db_connection->query($sql);

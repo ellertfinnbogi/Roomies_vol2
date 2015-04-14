@@ -12,7 +12,34 @@ $null_check_result = $conn->query($null_check);
 $res = $null_check_result->fetch_assoc();
 $_SESSION['room'] = $res['room'];
 $_SESSION['room_name'] = $res['room_name'];
+
+$conn->set_charset("utf8");
 echo "<meta charset='utf-8' >";
+
+// dagsetningabreytur
+date_default_timezone_set("GMT");
+
+$month_today = intval(substr(date('d-m-y'), 3,2));
+$day_today = substr(date('d-m-y'), 0,2);
+$_months = array(null,"Janúar","Febrúar","Mars","Apríl","Maí","Júní","Júlí","Ágúst","September","Október","Nóvember","Desember" );
+
+//possum að næsti mánuður á eftir desember sé janúar.
+if($month_today==12){
+	$next_month=1;
+}
+
+else{
+	$next_month=$month_today+1;
+}
+
+//possum að mánuðurinn á undan janúar sé desember.
+if($month_today==1){
+	$prev_month=12;
+}
+else{
+	$prev_month=$month_today-1;
+}
+
 ?>
     <title>Roomies
       </title>
@@ -152,6 +179,117 @@ if(isset($_POST['quit_room'])){
 			    </div>
 			    </div>
 			    </div>
+
+
+
+
+<!-- sjá skuldastöðu frá síðasta mánuði -->
+	<div class="modal fade" id="skuldastada"  tabindex="-1" role="dialog" aria-labelledby="greidsluskra" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+  
+    <div class="modal-content">
+    <div class="modal-header">
+    
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h2 id="modals" class="modal-title" id="greidsluskra">Skuldastaða í <?php echo $_months[$prev_month]; ?> </h2>
+<?php
+	$temp_month=$prev_month;
+	// höldum utan um fjölda í herbergi svo hægt sé að deila upphæðinni niður.
+	$countUsers = "SELECT COUNT(user_name) FROM users WHERE room='". $_SESSION['room']."';";
+	$resultCountUsers = $conn->query($countUsers);
+
+	if($resultCountUsers->num_rows >0)
+	{
+		while($rowcount = $resultCountUsers->fetch_assoc())
+		{	// vistum fjölda users í breytuna totalUsers.
+    		$totalUsers = $rowcount['COUNT(user_name)'];
+		}
+	}
+	// höldum utan um upphæðina sem "þú"" hefur lagt út. 
+	$yourCredit = "SELECT SUM(value),reg_date FROM payment WHERE user_name='". $_SESSION['user_name']."';";
+	$yourCreditResult = $conn->query($yourCredit);
+
+	if($yourCreditResult->num_rows >0)
+	{
+
+		while($rowCredit = $yourCreditResult->fetch_assoc())
+		{	// vistum í breytuna.
+			if(intval(substr($rowCredit['reg_date'], 3,2))==$temp_month){
+    		$totalCredit = $rowCredit['SUM(value)'];
+ 
+		}}
+	}
+	// breyta sem heldur utan um hvað hver og einn skuldar "þér".
+	if(isset($totalCredit)){
+	$creditPerUser = $totalCredit/$totalUsers;
+	}
+
+	$sql = "SELECT user_name FROM users WHERE room ='" . $_SESSION['room']."';";
+	$results = $conn->query($sql);
+
+
+	 //echo "<div class='row'><div class='col-md-6' id='prump'>";
+	 echo 	"<table class='table table-striped'><tr><th>Nafn meðleigjenda</th><th>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
+
+	if($results->num_rows > 0)
+	{
+
+
+															// hér breytti ég !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		while($row = $results->fetch_assoc())
+		{
+			// prentum ekki út okkar user name.
+			if($_SESSION['user_name'] == $row['user_name']){
+				continue;
+			}
+			else {
+				$sql1 = "SELECT SUM(value),reg_date FROM payment WHERE user_name =  '$row[user_name]'  AND room='". $_SESSION['room']."';";
+				$results1 = $conn->query($sql1);
+
+				if($results1->num_rows>0){
+					
+					while ($row1 = $results1->fetch_assoc()) {
+						
+						if(intval(substr($row1['reg_date'], 3,2))==$temp_month){
+
+
+						// skuldastaða users.
+						$currentDebt = ($row1['SUM(value)']/$totalUsers)- $creditPerUser;
+						// ef þú skildar honum
+						if($currentDebt>0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td>". intval($currentDebt). " Kr.</td><td></td></tr>";
+						}
+						// ef hann skuldar þér 
+						else if($currentDebt<0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td></td><td>". intval(abs($currentDebt)). " Kr.</td></tr>";
+						}
+						else if($currentDebt==0){
+							
+							echo "<tr><td>". $row['user_name'] ."</td><td>0 kr.</td><td>0 kr.</td></tr>";
+						}
+						else{
+							continue;
+						}
+					}
+				}	
+			}
+			}
+								
+		}
+
+		
+	echo "</table></div></div></div></div>";	
+	}
+	else{
+		echo "</table></div></div></div></div>";
+		
+	}
+?>
+
+
+
 		<!-- Skrá verkefni -->
 		<div class="modal fade" id="todo_job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -262,7 +400,8 @@ if(isset($_POST['quit_room'])){
 	<?php
 
 
-	$sql = "SELECT id,user_name,todo,user_resp,do_date,done_bool from todo where room = '" . $_SESSION['room'] ."';";
+	$temp = $_SESSION['room'];
+	$sql = "SELECT id,user_name,todo,user_resp,do_date,done_bool from todo where room = '$temp'  order by do_date limit 30 ";
 	
 	$result = $conn->query($sql);
 
@@ -327,7 +466,7 @@ if(isset($_POST['quit_room'])){
 
 		<!-- Greiðsluskrá -->
 <div class="modal fade payments" tabindex="-1" role="dialog" aria-labelledby="greidsluskra" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-lg">
   
     <div class="modal-content">
     <div class="modal-header">
@@ -335,18 +474,24 @@ if(isset($_POST['quit_room'])){
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<h2 id="modals" class="modal-title" id="greidsluskra">Greiðsluskrá</h2>
 <?php
-	$sql2 = "SELECT user_name,value,about_pay from payment where room = '" . $_SESSION['room'] ."';";
+	//temp breyta til að nota í sql skipuninni.
+	$temp=$_SESSION['room']; 
+	$sql2 = "SELECT user_name,value,about_pay,reg_date from payment where room = '$temp' order by reg_date /*limit 20*/";
 	
 	$result2 = $conn->query($sql2);
-	 echo 	"<table class='table table-striped'><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th></tr>";
+	 echo 	"<table class='table table-striped'><tr><th>Hver skáir greiðslu</th><th id='todo'>Upphæð</th><th>Lýsing</th><th>Dagsetning</th></tr>";
 
 	if($result2->num_rows > 0)
 	{
 
 		while($row = $result2->fetch_assoc())
 		{
-			$_SESSION['value'] = $row['value'];
-			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['value'] . "</td><td>". $row['about_pay']. "</td></tr>";
+			$monthofpay= substr($row['reg_date'], 3,2);
+			if ($monthofpay==$month_today) {
+
+				$_SESSION['value'] = $row['value'];
+			echo "<tr><td>". $row['user_name'] ."</td><td>". $row['value'] . "</td><td>". $row['about_pay']. "</td><td>". $row['reg_date']. "</td></tr>";
+			}
 			
 		}
 
@@ -419,6 +564,7 @@ if(isset($_POST['quit_room'])){
 	if($results->num_rows > 0)
 	{
 		echo "<div class='row'><div class='col-md-6' id='prump'>";
+				echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda<h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
 		while($row = $results->fetch_assoc())
 		{	
 			// prentum ekki út okkar user name.
@@ -426,7 +572,6 @@ if(isset($_POST['quit_room'])){
 				continue;
 			}
 			else{
-				echo 	"<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda<h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Þú skuldar</th><th>Hann skuldar þér</th></tr>";
 				$sql1 = "SELECT SUM(value) FROM payment WHERE user_name =  '$row[user_name]'  AND room='". $_SESSION['room']."';";
 				$results1 = $conn->query($sql1);
 
@@ -438,12 +583,12 @@ if(isset($_POST['quit_room'])){
 						// ef þú skildar honum
 						if($currentDebt>0){
 							
-							echo "<tr><td>". $row['user_name'] ."</td><td>". $currentDebt. " Kr.</td><td></td></tr>";
+							echo "<tr><td>". $row['user_name'] ."</td><td>". intval($currentDebt). " Kr.</td><td></td></tr>";
 						}
 						// ef hann skuldar þér 
 						else if($currentDebt<0){
 							
-							echo "<tr><td>". $row['user_name'] ."</td><td></td><td>". abs($currentDebt). " Kr.</td></tr>";
+							echo "<tr><td>". $row['user_name'] ."</td><td></td><td>". intval(abs($currentDebt)). " Kr.</td></tr>";
 						}
 						else if($currentDebt==0){
 							
@@ -459,14 +604,16 @@ if(isset($_POST['quit_room'])){
 		echo "</table>";
 	}
 	
+?>
+	<!-- takki fyrir neðan skuldastöðu sem opnar glugga fyrir skuldastöðu frá síðasta tímabili.-->
+	<a href="" data-toggle="modal" data-target="#skuldastada">Sjá skuldastöðu frá síðasta mánuði </a>
 
+	<?php
 	
 
 	//færð "tilkynningu um 'reikning' ef þú skuldar pening á mánudegi
-	date_default_timezone_set("GMT");
-
-	$day_today = date('l');
-	if($day_today == "Monday" && $currentDebt > 0)
+	
+	if(($day_today == 14) ||($day_today == 2) ||($day_today == 3) )
 	{
 
 		echo '<script type="text/javascript">'

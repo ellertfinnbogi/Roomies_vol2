@@ -20,8 +20,8 @@
 	$table['rows'] = $rows;
 	
 	
-$fp = fopen('../data/data.json', 'w');
-fwrite($fp, json_encode($table,JSON_PRETTY_PRINT));
+$fp = fopen('../data/data.json', 'w+');
+fwrite($fp, json_encode($table));
 fclose($fp);
 
 
@@ -58,8 +58,8 @@ fclose($fp);
 	$table1['rows'] = $rows1;
 	
 	
-$fp1 = fopen('../data/data2.json', 'w');
-fwrite($fp1, json_encode($table1,JSON_PRETTY_PRINT));
+$fp1 = fopen('../data/data2.json', 'w+');
+fwrite($fp1, json_encode($table1));
 fclose($fp1);
 
 ?>

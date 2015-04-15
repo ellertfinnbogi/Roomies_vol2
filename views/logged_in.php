@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once("../classes/Login.php");
 require_once("../config/db.php");
 require_once("../classes/user_functions.php");
@@ -179,7 +179,7 @@ EOT;
 						$temp1= $_SESSION['user_name'];
 						$temp = $_SESSION['room'];
 
-						$sql ="SELECT user_name,SUM(value) FROM payment  WHERE room='$temp' ANd c_date > '2015/$prev_month/01' AND c_date < '2015/$month_today/01' group by user_name";
+						$sql ="SELECT user_name,SUM(value) FROM payment  WHERE room='$temp' AND user_name != '$temp1'ANd c_date > '2015/$prev_month/01' AND c_date < '2015/$month_today/01' group by user_name";
 						$results= $conn->query($sql);
 	
 						if ($results->num_rows>0) {
@@ -472,7 +472,7 @@ EOT;
 	echo "<table class='table table-striped'><caption><h2>Skuldastaða milli meðleigjenda í núverandi mánuði<h2></caption><tr><th>Nafn Meðleigjanda</th><th id='value'>Heildarskuld</th></tr>";
 
 
-	$sql ="SELECT user_name,SUM(value) FROM payment  WHERE room='$temp' ANd c_date > '2015/$month_today/01' AND c_date < '2015/$next_month/01' group by user_name";
+	$sql ="SELECT user_name,SUM(value) FROM payment  WHERE room='$temp'AND user_name != '$temp1' ANd  c_date > '2015/$month_today/01' AND c_date < '2015/$next_month/01' group by user_name";
 	$results= $conn->query($sql);
 	
 	if ($results->num_rows>0) {
